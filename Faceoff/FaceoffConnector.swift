@@ -26,12 +26,18 @@ class FaceoffConnector: MPCManagerDelegate{
     // MARK: MPCManagerDelegate method implementation
     func fonudPeer(peerID: MCPeerID) {
         mpcManager.browser.invitePeer(peerID, toSession: mpcManager.session, withContext: nil, timeout: 50)
+
     }
-    func losePeer() {}
+    func losePeer() {
+        NSNotificationCenter.defaultCenter().postNotificationName("losePeerNotification", object: nil)
+
+    }
     func invite(fromPeer: MCPeerID) {
         mpcManager.invitationHandler(true,mpcManager.session)
     }
-    func connect(peerID: MCPeerID){}
+    func connect(peerID: MCPeerID){
+        NSNotificationCenter.defaultCenter().postNotificationName("connectNotification", object: nil)
+    }
     func sendData(data: Dictionary<String, AnyObject>){
         let serializerData = NSKeyedArchiver.archivedDataWithRootObject(data)
 
