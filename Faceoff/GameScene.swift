@@ -27,15 +27,15 @@ class GameScene: SKScene {
             addSprite("Destroyer", location: CGPoint(x: 80.0,y: 100.0),scale: 0.46),
             addSprite("Bro", location: CGPoint(x: 200.0,y: 100.0),scale: 0.7),
             addSprite("Bro2", location: CGPoint(x: 320.0,y: 100.0),scale: 0.7)
-            ]
-
+        ]
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connect:", name: "connectNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveRemoteData:", name: "receivedRemoteDataNotification", object: nil)
     }
-   
-
+    
+    
     func addSprite(imageNamed: String, location: CGPoint, scale: CGFloat) -> SKSpriteNode {
         let sprite = SKSpriteNode(imageNamed:imageNamed)
         
@@ -60,7 +60,7 @@ class GameScene: SKScene {
         sprite.runAction(SKAction.repeatActionForever(action))
         
         self.addChild(sprite)
-
+        
     }
     func losePeer(notification: NSNotification){
         
@@ -81,10 +81,10 @@ class GameScene: SKScene {
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
         //if let location = receivedData["location"] as? NSValue{
-            //addSpaceship(location.CGPointValue())
+        //addSpaceship(location.CGPointValue())
         //}
         if let index = receivedData["index"] as? Int{
-
+            
             for btn in otherBtns! {
                 btn.position.y = 550
             }
@@ -95,7 +95,7 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
+        /* Called when a touch begins */
         
         for touch in touches {
             let location = touch.locationInNode(self)
@@ -116,7 +116,7 @@ class GameScene: SKScene {
             }
         }
     }
-   
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }

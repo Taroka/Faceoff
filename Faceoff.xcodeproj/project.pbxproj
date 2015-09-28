@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0A11F8151BAFC1DD004605DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11F8141BAFC1DD004605DB /* AppDelegate.swift */; };
-		0A11F8171BAFC1DD004605DB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0A11F8161BAFC1DD004605DB /* GameScene.sks */; };
 		0A11F8191BAFC1DD004605DB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11F8181BAFC1DD004605DB /* GameScene.swift */; };
 		0A11F81B1BAFC1DD004605DB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11F81A1BAFC1DD004605DB /* GameViewController.swift */; };
 		0A11F81E1BAFC1DD004605DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A11F81C1BAFC1DD004605DB /* Main.storyboard */; };
@@ -18,6 +17,10 @@
 		0A11F8391BAFC1DD004605DB /* FaceoffUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11F8381BAFC1DD004605DB /* FaceoffUITests.swift */; };
 		0A11F8481BAFD07A004605DB /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11F8471BAFD07A004605DB /* MPCManager.swift */; settings = {ASSET_TAGS = (); }; };
 		0A11F84A1BAFD67C004605DB /* FaceoffConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11F8491BAFD67C004605DB /* FaceoffConnector.swift */; settings = {ASSET_TAGS = (); }; };
+		0A904C891BB803040003787A /* ScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A904C881BB803040003787A /* ScrollNode.swift */; settings = {ASSET_TAGS = (); }; };
+		0A9A487B1BB08FBC009A3B81 /* FireScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A487A1BB08FBC009A3B81 /* FireScene.swift */; settings = {ASSET_TAGS = (); }; };
+		0A9A487D1BB77F22009A3B81 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A487C1BB77F22009A3B81 /* MainScene.swift */; settings = {ASSET_TAGS = (); }; };
+		0A9A487F1BB7CE40009A3B81 /* PlayModeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A487E1BB7CE40009A3B81 /* PlayModeScene.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +43,6 @@
 /* Begin PBXFileReference section */
 		0A11F8111BAFC1DD004605DB /* Faceoff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Faceoff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A11F8141BAFC1DD004605DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0A11F8161BAFC1DD004605DB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		0A11F8181BAFC1DD004605DB /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		0A11F81A1BAFC1DD004605DB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		0A11F81D1BAFC1DD004605DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -56,6 +58,10 @@
 		0A11F8461BAFD020004605DB /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		0A11F8471BAFD07A004605DB /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		0A11F8491BAFD67C004605DB /* FaceoffConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceoffConnector.swift; sourceTree = "<group>"; };
+		0A904C881BB803040003787A /* ScrollNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
+		0A9A487A1BB08FBC009A3B81 /* FireScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireScene.swift; sourceTree = "<group>"; };
+		0A9A487C1BB77F22009A3B81 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		0A9A487E1BB7CE40009A3B81 /* PlayModeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayModeScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,13 +112,16 @@
 		0A11F8131BAFC1DD004605DB /* Faceoff */ = {
 			isa = PBXGroup;
 			children = (
+				0A9A487A1BB08FBC009A3B81 /* FireScene.swift */,
 				0A11F8141BAFC1DD004605DB /* AppDelegate.swift */,
 				0A11F8491BAFD67C004605DB /* FaceoffConnector.swift */,
-				0A11F8161BAFC1DD004605DB /* GameScene.sks */,
 				0A11F8181BAFC1DD004605DB /* GameScene.swift */,
+				0A9A487C1BB77F22009A3B81 /* MainScene.swift */,
+				0A9A487E1BB7CE40009A3B81 /* PlayModeScene.swift */,
 				0A11F8471BAFD07A004605DB /* MPCManager.swift */,
 				0A11F8461BAFD020004605DB /* MyPlayground.playground */,
 				0A11F81A1BAFC1DD004605DB /* GameViewController.swift */,
+				0A904C881BB803040003787A /* ScrollNode.swift */,
 				0A11F81C1BAFC1DD004605DB /* Main.storyboard */,
 				0A11F81F1BAFC1DD004605DB /* Assets.xcassets */,
 				0A11F8211BAFC1DD004605DB /* LaunchScreen.storyboard */,
@@ -245,7 +254,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A11F8171BAFC1DD004605DB /* GameScene.sks in Resources */,
 				0A11F8231BAFC1DD004605DB /* LaunchScreen.storyboard in Resources */,
 				0A11F8201BAFC1DD004605DB /* Assets.xcassets in Resources */,
 				0A11F81E1BAFC1DD004605DB /* Main.storyboard in Resources */,
@@ -274,10 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A11F8191BAFC1DD004605DB /* GameScene.swift in Sources */,
+				0A904C891BB803040003787A /* ScrollNode.swift in Sources */,
 				0A11F81B1BAFC1DD004605DB /* GameViewController.swift in Sources */,
 				0A11F84A1BAFD67C004605DB /* FaceoffConnector.swift in Sources */,
+				0A9A487D1BB77F22009A3B81 /* MainScene.swift in Sources */,
 				0A11F8481BAFD07A004605DB /* MPCManager.swift in Sources */,
+				0A9A487B1BB08FBC009A3B81 /* FireScene.swift in Sources */,
 				0A11F8151BAFC1DD004605DB /* AppDelegate.swift in Sources */,
+				0A9A487F1BB7CE40009A3B81 /* PlayModeScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Faceoff/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = huaying.Faceoff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Faceoff/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = huaying.Faceoff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -504,6 +518,7 @@
 				0A11F83F1BAFC1DD004605DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A11F8401BAFC1DD004605DB /* Build configuration list for PBXNativeTarget "FaceoffTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +527,7 @@
 				0A11F8421BAFC1DD004605DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A11F8431BAFC1DD004605DB /* Build configuration list for PBXNativeTarget "FaceoffUITests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +536,7 @@
 				0A11F8451BAFC1DD004605DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
