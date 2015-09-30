@@ -50,21 +50,32 @@ class PlayModeScene: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let location = touches.first?.locationInNode(self){
             if 選擇單人遊戲按鈕.containsPoint(location){
-                print("tapped")
-            }
-            if 選擇雙人遊戲按鈕.containsPoint(location){
-                print("tapped2")
-            }
-            if 返回按鈕.containsPoint(location){
-                let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
+                print("single play")
+                let nextScene = SelectWeaponScene(size: scene!.size)
+                nextScene.backgroundColor = UIColor.grayColor()
+                nextScene.scaleMode = SKSceneScaleMode.AspectFill
+                transitionForNextScene(nextScene)
                 
+            }else if 選擇雙人遊戲按鈕.containsPoint(location){
+                print("multiplayer")
+                let nextScene = PlayerListScene(size: scene!.size)
+                nextScene.scaleMode = SKSceneScaleMode.AspectFill
+                transitionForNextScene(nextScene)
+                
+            }else if 返回按鈕.containsPoint(location){
                 let nextScene = MainScene(size: scene!.size)
-                nextScene.scaleMode = .AspectFill
-                
-                scene?.view?.presentScene(nextScene, transition: transition)
+                nextScene.scaleMode = SKSceneScaleMode.AspectFill
+                transitionForNextScene(nextScene)
             }
         }
     }
+    
+    func transitionForNextScene(nextScene: SKScene){
+        let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
+        
+        scene?.view?.presentScene(nextScene, transition: transition)
+    }
+    
     override func update(currentTime: NSTimeInterval) {
         
     }

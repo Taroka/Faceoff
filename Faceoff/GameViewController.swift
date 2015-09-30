@@ -8,12 +8,16 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     
+    
+    var musicPlayer:AVAudioPlayer!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //let scene = SelectWeaponScene(size: view.bounds.size)
         let scene = MainScene(size: view.bounds.size)
         let skView = self.view as! SKView
         skView.showsFPS = true
@@ -29,7 +33,28 @@ class GameViewController: UIViewController {
 
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        musicPlayer = setupAudioPlayerWithFile("fighton", type: "mp3")
+        musicPlayer.numberOfLoops = -1
+        //musicPlayer.play()
+        // 如果開始了就停止播放
+    }
     
+    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+        let url = NSBundle.mainBundle().URLForResource(file as String, withExtension: type as String)
+        var audioPlayer:AVAudioPlayer?
+        
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOfURL: url!)
+        } catch {
+            print("NO AUDIO PLAYER")
+        }
+        
+        return audioPlayer!
+    }
+
     
     override func shouldAutorotate() -> Bool {
         return true

@@ -12,8 +12,8 @@ import MultipeerConnectivity
 protocol MPCManagerDelegate {
     func fonudPeer(peerID: MCPeerID)
     func losePeer()
-    func invite(fromPeer: MCPeerID)
-    func connect(peerID: MCPeerID)
+    func invited(fromPeer: MCPeerID)
+    func connected(peerID: MCPeerID)
     func reiceveData(data: NSData)
 }
 
@@ -36,10 +36,10 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
         session = MCSession(peer: peer)
         session.delegate = self
         
-        browser = MCNearbyServiceBrowser(peer: peer, serviceType: "faceoff-mpc")
+        browser = MCNearbyServiceBrowser(peer: peer, serviceType: "faceoff-mpc1")
         browser.delegate = self
         
-        advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: "faceoff-mpc")
+        advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: "faceoff-mpc1")
         advertiser.delegate = self
     }
     
@@ -47,7 +47,6 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
     
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         foundPeers.append(peerID)
-        
         delegate?.fonudPeer(peerID)
 
     }
@@ -69,7 +68,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
     
     func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
         self.invitationHandler = invitationHandler
-        delegate?.invite(peerID)
+        delegate?.invited(peerID)
     }
     
     func advertiser(advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: NSError) {
@@ -80,14 +79,14 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
     func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
         switch state{
         case MCSessionState.Connected:
-            //print("Connected to session: \(session)")
-            delegate?.connect(peerID)
+            print("Connected to session: \(session)")
+            delegate?.connected(peerID)
             break
         case MCSessionState.Connecting:
-            //print("Connecting to session: \(session)")
+            print("Connecting to session: \(session)")
             break
         default:
-            //print("Did not connect to session: \(session)")
+            print("Did not connect to session: \(session)")
             break
         }
         
@@ -109,4 +108,5 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
     }
     
     // MARK: Custom method implementation
+
 }

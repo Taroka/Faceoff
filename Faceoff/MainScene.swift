@@ -6,12 +6,28 @@
 //  Copyright © 2015 huaying. All rights reserved.
 //
 
+import UIKit
+import GLKit
 import SpriteKit
 
-class MainScene: SKScene {
+
+
+class MainScene: SKScene, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+    
+    var photoView: UIImageView!
+    var layerView: UIImageView!
+    
+    var imagePicker: UIImagePickerController!
+    
+    let logo = UIImage(named: "headdd")!
+    let mask = CALayer()
+    
+    var finalImg : UIImage!
+    var imgForPlayer : UIImage!
+    
+    
     var 製造角色按鈕: SKNode! = nil
     var 進入遊戲按鈕: SKNode! = nil
-    let a = ScrollNode()
     
     override func didMoveToView(view: SKView) {
         製造角色按鈕 = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200, height: 40))
@@ -34,27 +50,11 @@ class MainScene: SKScene {
         進入遊戲文字.position = CGPoint(x:CGFloat(0),y:CGFloat(-5))
         進入遊戲按鈕.addChild(進入遊戲文字)
         
-        a.position = CGPoint(x:0,y:0)
-        let b = SKLabelNode()
-        b.text = "Top"
-        b.position = CGPoint(x:50,y:2000-50)
-        let c = SKLabelNode()
-        c.text = "Bottom"
-        c.position = CGPoint(x:50,y:50)
-        let d = SKSpriteNode(color: UIColor.brownColor(), size: CGSize(width: 300, height: 300))
-        d.position = CGPoint(x:200,y:500)
-        a.addChild(b)
-        a.addChild(c)
-        a.addChild(d)
-        addChild(a)
-        a.setScrollingView(view)
-        
-        
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let location = touches.first?.locationInNode(self){
             if 製造角色按鈕.containsPoint(location){
-                print("tapped")
+                //takePictures()
             }
             if 進入遊戲按鈕.containsPoint(location){
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
@@ -66,7 +66,34 @@ class MainScene: SKScene {
             }
         }
     }
-    override func update(currentTime: NSTimeInterval) {
+    
+//    func takePictures(){
+//        //use camera
+//        layerView = UIImageView()
+//        imagePicker =  UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .Camera
+//        imagePicker.allowsEditing = true
+//        //imagePicker.cameraOverlayView = viewShow
+//        
+//        imagePicker.showsCameraControls = true;
+//        
+//        
+//        //add astronaut layer to camera
+//        layerView.image = UIImage(named: ("player"))
+//        layerView.frame.size.width = self.view!.frame.size.width
+//        layerView.frame.size.height = self.view!.frame.size.height
+//        
+//        
+//        imagePicker.cameraDevice = UIImagePickerControllerCameraDevice.Front
+//        imagePicker.cameraOverlayView = layerView //3.0以后可以直接设置cameraOverlayView为overlay
+//        presentViewController(imagePicker, animated: true , completion: nil)
+//        //photoView.getMirror()
+//
+//    }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    }
+        override func update(currentTime: NSTimeInterval) {
         
     }
 }

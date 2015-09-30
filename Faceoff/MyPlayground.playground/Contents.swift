@@ -109,3 +109,18 @@ enum Rank: Int {
 }
 let ace = Rank.Ace
 let aceRawValue = ace.simpleDescription()
+
+
+var test = Set<String>()
+test.insert("a")
+test.insert("b")
+test.insert("b")
+for i in test {
+    print(i)
+}
+
+
+
+
+
+

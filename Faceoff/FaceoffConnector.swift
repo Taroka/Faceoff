@@ -13,31 +13,53 @@ import MultipeerConnectivity
 class FaceoffConnector: MPCManagerDelegate{
     
     var mpcManager: MPCManager
+    var isStart = false
     
     init(){
-        print("start connector")
-        mpcManager = MPCManager()
         
-        mpcManager.browser.startBrowsingForPeers()
-        mpcManager.advertiser.startAdvertisingPeer()
+        mpcManager = MPCManager()
         mpcManager.delegate = self
+    }
+    
+    func start(){
+        if !isStart {
+            print("start connector")
+            mpcManager.browser.startBrowsingForPeers()
+            mpcManager.advertiser.startAdvertisingPeer()
+            isStart = true
+        }
+    }
+    
+    func stop(){
+        if isStart {
+            print("stop connector")
+            mpcManager.browser.stopBrowsingForPeers()
+            mpcManager.advertiser.stopAdvertisingPeer()
+            mpcManager.foundPeers.removeAll()
+            isStart = false
+        }
+
     }
     
     // MARK: MPCManagerDelegate method implementation
     func fonudPeer(peerID: MCPeerID) {
-        mpcManager.browser.invitePeer(peerID, toSession: mpcManager.session, withContext: nil, timeout: 50)
-
+        NSNotificationCenter.defaultCenter().postNotificationName("foundPeerNotification", object: nil)
     }
+    
     func losePeer() {
         NSNotificationCenter.defaultCenter().postNotificationName("losePeerNotification", object: nil)
-
     }
-    func invite(fromPeer: MCPeerID) {
+    
+    func invited(fromPeer: MCPeerID) {
+        print("invited")
         mpcManager.invitationHandler(true,mpcManager.session)
     }
-    func connect(peerID: MCPeerID){
-        NSNotificationCenter.defaultCenter().postNotificationName("connectNotification", object: nil)
+    
+    func connected(peerID: MCPeerID){
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("connectNotification", object: peerID)
     }
+    
     func sendData(data: Dictionary<String, AnyObject>){
         let serializerData = NSKeyedArchiver.archivedDataWithRootObject(data)
 
@@ -50,4 +72,15 @@ class FaceoffConnector: MPCManagerDelegate{
     func reiceveData(data: NSData) {
         NSNotificationCenter.defaultCenter().postNotificationName("receivedRemoteDataNotification", object: data)
     }
+    
+    // MARK: Custom method implementation
+    func invitePeer(peerID: MCPeerID){
+        print("invite")
+        mpcManager.browser.invitePeer(peerID, toSession: mpcManager.session, withContext: nil, timeout: 20)
+    }
+    
+    func getPeers() -> [MCPeerID]{
+        return mpcManager.foundPeers
+    }
+    
 }

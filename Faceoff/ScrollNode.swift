@@ -13,30 +13,41 @@ class ScrollNode: SKNode{
     let coefficientOfSliding = 0.1
     let coefficientOfTransition = 0.3
     
-    let maxYPosition: CGFloat = 0
-    var minYPosition: CGFloat {
+    let yPadding: CGFloat = 100
+    
+    var maxYPosition: CGFloat {
         get {
-            return (self.parent?.frame.size.height)! - self.calculateAccumulatedFrame().size.height - yOffset!
+            return 0 + yPadding
         }
     }
-    var yOffset: CGFloat?
+    var minYPosition: CGFloat {
+        get {
+            //print((self.parent?.frame.size.height)! ,self.calculateAccumulatedFrame().size.height ,yOffset)
+            if let sizeHeight = self.parent?.frame.size.height {
+                return sizeHeight - self.calculateAccumulatedFrame().size.height - yOffset - yPadding
+            }
+            return 0
+        }
+    }
+    var yOffset: CGFloat = 0
     var recognizer:UIPanGestureRecognizer?
     
     override init(){
         super.init()
-        yOffset = self.calculateAccumulatedFrame().origin.y
     }
     
     override func addChild(node: SKNode) {
         super.addChild(node)
+        self.position.y = 0
         yOffset = self.calculateAccumulatedFrame().origin.y
+        self.scrollToTop()
     }
     
     func scrollToBottom(){
-        self.position = CGPoint(x: 0,y: self.maxYPosition)
+        self.position = CGPoint(x: position.x,y: self.maxYPosition)
     }
     func scrollToTop(){
-        self.position = CGPoint(x: 0,y: self.minYPosition)
+        self.position = CGPoint(x: position.x,y: self.minYPosition)
         
     }
     
@@ -45,7 +56,6 @@ class ScrollNode: SKNode{
         recognizer = UIPanGestureRecognizer(target: self, action:Selector("handlePan:"))
         view.addGestureRecognizer(recognizer!)
         
-        self.scrollToTop()
     }
     
     func handlePan(regcognizer: UIPanGestureRecognizer){
@@ -59,7 +69,7 @@ class ScrollNode: SKNode{
             let distanceOfSliding = velocity.y * CGFloat(coefficientOfSliding)
             
             var newYPosition = self.position.y-distanceOfSliding
-            newYPosition = min(max(newYPosition,self.minYPosition),self.maxYPosition)
+            newYPosition = max(min(newYPosition,self.maxYPosition),self.minYPosition)
             
             let moveTo = SKAction.moveTo(CGPoint(x:self.position.x,y: newYPosition), duration: coefficientOfTransition)
             moveTo.timingMode = SKActionTimingMode.EaseInEaseOut
