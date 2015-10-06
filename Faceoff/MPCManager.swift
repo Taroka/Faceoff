@@ -84,6 +84,9 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
             break
         case MCSessionState.Connecting:
             print("Connecting to session: \(session)")
+            
+            statusLabel("Connecting2....")
+
             break
         default:
             print("Did not connect to session: \(session)")
@@ -107,6 +110,14 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
         
     }
     
+    func statusLabel(statusName: String) -> SKLabelNode{
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = statusName
+        label.fontSize = 50
+        label.position = CGPointMake(frame.midX, frame.midY)
+        self.addChild(label)
+        return label
+    }
     // MARK: Custom method implementation
 
 }

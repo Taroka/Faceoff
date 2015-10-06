@@ -41,7 +41,7 @@ class PlayerListScene: SKScene {
                 peerNode.fontSize = 30;
                 peerNode.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGFloat(i*40)+50)
                 scrollnode.addChild(peerNode)
-            }
+                }
         }
 //        let list = [String](count: 20, repeatedValue: "DisplayName")
 //        for (i,el) in list.enumerate() {

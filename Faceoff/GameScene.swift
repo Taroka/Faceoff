@@ -115,8 +115,8 @@ class GameScene: SKScene {
         }
         
         //run while roundOver is true
-     //      guard !roundOver else {
-                
+           guard fighting else {
+                print("guartfighting")
        //         roundOver = false // reset a round
 
                 //set weapon before each round
@@ -131,8 +131,8 @@ class GameScene: SKScene {
                     }
                 }
             
-//                return
-//            }
+                return
+            }
         
         //set restart while the game is overs
         if let gameOverSign = receivedData["gameOverSign"] as? Bool{
@@ -221,7 +221,7 @@ class GameScene: SKScene {
 //                let animation = SKAction.animateWithTextures(attackerWHAnimation, timePerFrame: 0.02)
 //                attackerNode?.runAction(animation)
 //            }
-         //   guard !roundOver else {
+            guard fighting else {
 
             var n = true
       
@@ -251,9 +251,9 @@ class GameScene: SKScene {
                 appDelegate.connector.sendData(["didSelectWeapon": Int(-1)])
             }
             
-//                return
-//            }
-//            
+                return
+            }
+//
 
           guard !fighting else {
                 oneAttackCircle()
