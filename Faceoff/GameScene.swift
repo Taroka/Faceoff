@@ -69,6 +69,12 @@ class GameScene: SKScene {
         removeAllChildren()
         start()
     }
+    func restartRound() {
+        attackCount = 0
+        //score = 0
+        removeAllChildren()
+        start()
+    }
     
     //拿來放跳出來的東西 (武器, 道具)
     func addSprite(imageNamed: String, location: CGPoint, scale: CGFloat) -> SKSpriteNode {
@@ -111,6 +117,7 @@ class GameScene: SKScene {
         if let fightingSign = receivedData["fightingSign"] as? Bool{
             fighting = fightingSign
             print("fightingSign: ", fighting)
+            restartRound()
             //roundOver = true
         }
         
@@ -174,6 +181,7 @@ class GameScene: SKScene {
         
         if attackCount == 5 {fighting = false;
             
+            
             //round three, game over
             if (roundCount == 3) {
                 appDelegate.connector.sendData(["fightingSign": false])
@@ -184,6 +192,8 @@ class GameScene: SKScene {
             appDelegate.connector.sendData(["fightingSign": false])
             //fighting = false
             }
+            
+            restartRound()
             }
         }
         

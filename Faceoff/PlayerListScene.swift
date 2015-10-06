@@ -64,7 +64,7 @@ class PlayerListScene: SKScene {
     
     func foundPeer(notification: NSNotification){
         updateScene()
-        //statusLabel("Found Peer")
+      //  statusLabel("Found Peer")
         
 
 
