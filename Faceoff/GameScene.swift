@@ -102,15 +102,22 @@ class GameScene: SKScene {
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
         //detect 回合開始了嗎 roundOver == true >> choose weapon again
-        if let roundOverSign = receivedData["roundOverSign"] as? Bool{
-            roundOver = roundOverSign
+//        if let roundOverSign = receivedData["roundOverSign"] as? Bool{
+//            roundOver = roundOverSign
+//            
+//            print("roundOver: ", roundOver)
+//            //roundOver = true
+//        }
+        if let fightingSign = receivedData["fightingSign"] as? Bool{
+            fighting = fightingSign
+            print("fightingSign: ", fighting)
             //roundOver = true
         }
         
         //run while roundOver is true
-           guard !roundOver else {
+     //      guard !roundOver else {
                 
-                roundOver = false // reset a round
+       //         roundOver = false // reset a round
 
                 //set weapon before each round
                 if let index = receivedData["didSelectWeapon"] as? Int{
@@ -124,8 +131,8 @@ class GameScene: SKScene {
                     }
                 }
             
-                return
-            }
+//                return
+//            }
         
         //set restart while the game is overs
         if let gameOverSign = receivedData["gameOverSign"] as? Bool{
@@ -165,14 +172,17 @@ class GameScene: SKScene {
         
         if attackCount == 3 {loadAlert()}
         
-        if attackCount == 5 {roundOver = true;
+        if attackCount == 5 {fighting = false;
             
             //round three, game over
             if (roundCount == 3) {
+                appDelegate.connector.sendData(["fightingSign": false])
                 appDelegate.connector.sendData(["gameOverSign": true])
+
             }else{
-            appDelegate.connector.sendData(["roundOverSign": true])
-            roundOver = true
+           // appDelegate.connector.sendData(["roundOverSign": true])
+            appDelegate.connector.sendData(["fightingSign": false])
+            //fighting = false
             }
             }
         }
@@ -211,7 +221,7 @@ class GameScene: SKScene {
 //                let animation = SKAction.animateWithTextures(attackerWHAnimation, timePerFrame: 0.02)
 //                attackerNode?.runAction(animation)
 //            }
-            guard !roundOver else {
+         //   guard !roundOver else {
 
             var n = true
       
@@ -241,9 +251,9 @@ class GameScene: SKScene {
                 appDelegate.connector.sendData(["didSelectWeapon": Int(-1)])
             }
             
-                return
-            }
-            
+//                return
+//            }
+//            
 
           guard !fighting else {
                 oneAttackCircle()

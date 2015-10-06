@@ -38,7 +38,7 @@ class GameViewController: UIViewController {
         
         musicPlayer = setupAudioPlayerWithFile("fighton", type: "mp3")
         musicPlayer.numberOfLoops = -1
-        musicPlayer.play()
+        //musicPlayer.play()
         // 如果開始了就停止播放
     }
     

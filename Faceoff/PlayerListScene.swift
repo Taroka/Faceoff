@@ -56,7 +56,7 @@ class PlayerListScene: SKScene {
         let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = statusName
         label.fontSize = 50
-        //label.position = CGPointMake(frame.midX, frame.midY)
+        label.position = CGPointMake(frame.midX, frame.midY)
         self.addChild(label)
         return label
     }
@@ -64,7 +64,7 @@ class PlayerListScene: SKScene {
     
     func foundPeer(notification: NSNotification){
         updateScene()
-        statusLabel("Found Peer")
+        //statusLabel("Found Peer")
         
 
 
