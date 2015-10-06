@@ -30,7 +30,6 @@
 		0A9F8E941BBB11D5002B12B0 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F8E921BBB11D5002B12B0 /* Tools.swift */; settings = {ASSET_TAGS = (); }; };
 		0A9F8E951BBB11D5002B12B0 /* Defined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F8E931BBB11D5002B12B0 /* Defined.swift */; settings = {ASSET_TAGS = (); }; };
 		0A9F8E971BBB2139002B12B0 /* SelectWeaponScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F8E961BBB2139002B12B0 /* SelectWeaponScene.swift */; settings = {ASSET_TAGS = (); }; };
-		0A9F8E9B1BBB22F9002B12B0 /* FireScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F8E9A1BBB22F9002B12B0 /* FireScene.swift */; settings = {ASSET_TAGS = (); }; };
 		0A9F8E9D1BBB25E4002B12B0 /* TakePicturesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F8E9C1BBB25E4002B12B0 /* TakePicturesScene.swift */; settings = {ASSET_TAGS = (); }; };
 		A3A6B6741BC3C01A006F4CF9 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A6B6711BC3C01A006F4CF9 /* fail.png */; settings = {ASSET_TAGS = (); }; };
 		A3A6B6751BC3C01A006F4CF9 /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A6B6721BC3C01A006F4CF9 /* win.png */; settings = {ASSET_TAGS = (); }; };
@@ -104,7 +103,6 @@
 		0A9F8E921BBB11D5002B12B0 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		0A9F8E931BBB11D5002B12B0 /* Defined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defined.swift; sourceTree = "<group>"; };
 		0A9F8E961BBB2139002B12B0 /* SelectWeaponScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectWeaponScene.swift; sourceTree = "<group>"; };
-		0A9F8E9A1BBB22F9002B12B0 /* FireScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireScene.swift; sourceTree = "<group>"; };
 		0A9F8E9C1BBB25E4002B12B0 /* TakePicturesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePicturesScene.swift; sourceTree = "<group>"; };
 		A3A6B6711BC3C01A006F4CF9 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
 		A3A6B6721BC3C01A006F4CF9 /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = win.png; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 		0A11F8131BAFC1DD004605DB /* Faceoff */ = {
 			isa = PBXGroup;
 			children = (
-				0A9F8E9A1BBB22F9002B12B0 /* FireScene.swift */,
 				0A9F8E921BBB11D5002B12B0 /* Tools.swift */,
 				0A9F8E931BBB11D5002B12B0 /* Defined.swift */,
 				0A9F8E641BBB10F1002B12B0 /* Assets */,
@@ -459,7 +456,6 @@
 				0A9F8E941BBB11D5002B12B0 /* Tools.swift in Sources */,
 				0A9F8E971BBB2139002B12B0 /* SelectWeaponScene.swift in Sources */,
 				0A11F8151BAFC1DD004605DB /* AppDelegate.swift in Sources */,
-				0A9F8E9B1BBB22F9002B12B0 /* FireScene.swift in Sources */,
 				0A9A487F1BB7CE40009A3B81 /* PlayModeScene.swift in Sources */,
 				0A9F8E951BBB11D5002B12B0 /* Defined.swift in Sources */,
 			);
@@ -603,7 +599,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Faceoff/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ching.Faceoff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -617,7 +613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Faceoff/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ching.Faceoff;
 				PRODUCT_NAME = "$(TARGET_NAME)";

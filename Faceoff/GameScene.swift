@@ -1,8 +1,180 @@
 
 import SpriteKit
 import AVFoundation
+import Darwin
+
+var screen_h: CGFloat = 0
+var screen_w: CGFloat = 0
+
+var v0x: CGFloat = 0
+var v0y: CGFloat = 0
+var ax: CGFloat = 0
+var ay: CGFloat = 0
+var T: CGFloat = 0
+var startX: CGFloat = 0
+var startY: CGFloat = 0
+var endX: CGFloat = 0
+var endY: CGFloat = 0
+var xRatio: CGFloat = 0
+var yRatio: CGFloat = 0
+
+//the following vars are for straight movement
+var vxStraight: CGFloat = 0
+var vyStraight: CGFloat = 0
+let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+enum WeaponType {
+    case cannon
+    case rocket
+    case gun
+}
+
+class WeaponData {
+    var position: CGPoint! = nil
+    var id: WeaponType! = nil
+    var scale: CGFloat! = nil
+    init(position: CGPoint, id: WeaponType, scale: CGFloat) {
+        self.position = position
+        self.id = id
+        self.scale = scale
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extension SKAction {
+    static func curve(startRadius startRadius: CGFloat, endRadius: CGFloat,
+        centerPoint: CGPoint, duration: NSTimeInterval, type: Int) -> SKAction {
+            
+            
+            let action = SKAction.customActionWithDuration(duration) { node, time in
+                // The equation, r = a + bθ
+                let radius = startRadius -  (startRadius - endRadius) * (time / CGFloat(duration))
+                let pos = position(centerPoint, time: time, duration: duration, type: type)
+                if type == 0 {
+                    node.position = pos
+                    node.setScale(radius * 0.8 / startRadius)
+                    if node.position.x > startX * 3 {
+                        node.removeFromParent()
+                        print("remove")
+                    }
+                } else {
+                    node.position = CGPoint(x:screen_w - pos.x, y:screen_h - pos.y)
+                    node.setScale((startRadius - radius) * 0.8 / startRadius)
+                    if(node.position.x < startX) {
+                        node.removeFromParent()
+                        print("remove")
+                    }
+                }
+                
+                if time == CGFloat(duration) {
+                    print("remove")
+                    node.removeFromParent()
+                }
+            }
+            
+            return action
+    }
+    
+    static func rocketPath(startRadius startRadius: CGFloat, endRadius: CGFloat, upMost: CGFloat,
+        duration: NSTimeInterval, type: Int) -> SKAction {
+            let action = SKAction.customActionWithDuration(duration) { node, time in
+                // The equation, r = a + bθ
+                let a: CGFloat = ay * 0.75
+                
+                var x: CGFloat = 0.0
+                var y: CGFloat = 0.0
+                
+                if type == 0 {
+                    y = v0y * time + 0.5 * a * time * time + startY
+                    if v0y + a * time > 0 {
+                        x = startX
+                    } else {
+                        x = endX
+                        node.setScale(endRadius / startRadius)
+                    }
+                    node.position = CGPoint(x: x, y: y)
+                    if x == endX && y <= endY {
+                        print("remove")
+                        node.removeFromParent()
+                    }
+                }
+                /*else {
+                y = v0y * time + 0.5 * a * time * time + endY
+                if v0y + a * time > 0 {
+                x = endX
+                node.setScale(endRadius / startRadius)
+                } else {
+                x = startX
+                }
+                node.position = CGPoint(x: x, y: y)
+                if x == startX && y >= startY {
+                print("remove")
+                node.removeFromParent()
+                }
+                }*/
+            }
+            
+            return action
+    }
+    
+    static func curveOfStraight(startRadius startRadius: CGFloat, endRadius: CGFloat,
+        centerPoint: CGPoint, duration: NSTimeInterval, type: Int) -> SKAction {
+            
+            
+            let action = SKAction.customActionWithDuration(duration) { node, time in
+                // The equation, r = a + bθ
+                let radius = startRadius -  (startRadius - endRadius) * (time / CGFloat(duration))
+                let pos = positionOfStraight(centerPoint, time: time, duration: duration, type: type)
+                if type == 0 {
+                    node.position = pos
+                    node.setScale(radius * 0.8 / startRadius)
+                    if node.position.x > startX * 3 {
+                        node.removeFromParent()
+                        print("remove")
+                    }
+                } else {
+                    node.position = CGPoint(x: screen_w - pos.x, y: screen_h - pos.y)
+                    node.setScale((startRadius - radius) * 0.8 / startRadius)
+                    if node.position.x < startX {
+                        node.removeFromParent()
+                        print("remove")
+                    }
+                }
+            }
+            
+            return action
+    }
+}
+
+func position(center: CGPoint, time: CGFloat, duration: NSTimeInterval, type: Int) -> CGPoint {
+    
+    var x: CGFloat = 0.0
+    var y: CGFloat = 0.0
+    x = v0x * time + 0.5 * ax * time * time + startX
+    y = v0y * time + 0.5 * ay * time * time + startY
+    if type == 0 {
+        return CGPoint(x: x, y: y)
+    } else {
+        return CGPoint(x: x, y: y)
+    }
+    
+}
+
+func positionOfStraight(center: CGPoint, time: CGFloat, duration: NSTimeInterval, type: Int) -> CGPoint {
+    
+    var x: CGFloat = 0.0
+    var y: CGFloat = 0.0
+    x =  vxStraight * time  + startX
+    y =  vyStraight * time  + startY
+    if type == 0 {
+        return CGPoint(x: x, y: y)
+    } else {
+        return CGPoint(x: x, y: y)
+    }
+}
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class GameScene: SKScene {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -15,7 +187,7 @@ class GameScene: SKScene {
     var weapon1_ori_pos: CGPoint!
     var weapon2_ori_pos: CGPoint!
     var weapon3_ori_pos: CGPoint!
-
+    
     var bgMusic:AVAudioPlayer = AVAudioPlayer()
     var attackCount = 0
     var roundCount = 0
@@ -25,6 +197,11 @@ class GameScene: SKScene {
     var OppArmedStat = false
     var fighting = false
     var roundOver = true
+    
+    var 大炮按钮: SKNode! = nil
+    var 火箭按钮: SKNode! = nil
+    var gun按钮: SKNode! = nil
+    var 被大炮射: SKShapeNode = SKShapeNode(circleOfRadius: 50)
     
     
     var gameOver = false{
@@ -48,7 +225,7 @@ class GameScene: SKScene {
             }
         }
     }
-
+    
     
     
     override func didMoveToView(view: SKView) {
@@ -57,12 +234,13 @@ class GameScene: SKScene {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveRemoteData:", name: "receivedRemoteDataNotification", object: nil)
     }
+    
     func start() {
         loadBackground()
         loadHero()
-//        loadScoreBackground()
-//        loadScore()
-       // loadAttacker()
+        //        loadScoreBackground()
+        //        loadScore()
+        // loadAttacker()
         loadGameOverLayer()
         
         
@@ -73,7 +251,21 @@ class GameScene: SKScene {
             print(arr)
             loadWeapons(arr)
         }
-    
+        
+        xRatio = 4
+        yRatio = 6
+        T = 1.0
+        v0x = -self.view!.frame.size.width / (T * 1.2)
+        v0y = yRatio *  self.view!.frame.size.height /  (T * 3)
+        ax = -v0x * xRatio / (T * 1)//1.3)
+        ay = -v0y * yRatio / (T * 4.3)//4)
+        
+        screen_h = (self.view?.frame.size.height)!
+        screen_w = (self.view?.frame.size.width)!
+        
+        //the following vars are for straight movement
+        vxStraight = self.view!.frame.size.width / (T*1.5)
+        vyStraight = self.view!.frame.size.height / (T)
     }
     func restart() {
         gameOver = false
@@ -101,47 +293,47 @@ class GameScene: SKScene {
         self.addChild(sprite)
         return sprite
     }
-
+    
     func losePeer(notification: NSNotification){
         
         /*
         for btn in otherBtns!{
-            btn.removeFromParent()
+        btn.removeFromParent()
         }
         */
         
         print("QQQQ")
         
     }
-
+    
     func loadAlert(){
         _ = starEmitterActionAtPosition(CGPointMake(frame.midX, frame.midY))
     }
     
-
+    
     func receiveRemoteData(notification: NSNotification){
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
-
+        
         //set restart while the game is overs
         if let gameOverSign = receivedData["gameOverSign"] as? Bool{
-
-                gameOver = gameOverSign
             
-
-                let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
-                print("gameOveron receiveRemote")
-                let location = CGPoint(x: frame.midX, y: frame.maxY * 0.6)
-                let retry = gameOverLayer!.nodeAtPoint(location)
-
-                if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
-                    retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
-                        self.restart()
-                        })
-                }
+            gameOver = gameOverSign
+            
+            
+            let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
+            print("gameOveron receiveRemote")
+            let location = CGPoint(x: frame.midX, y: frame.maxY * 0.6)
+            let retry = gameOverLayer!.nodeAtPoint(location)
+            
+            if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
+                retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
+                    self.restart()
+                    })
+            }
             
         }
-
+        
         
         if let fightingSign = receivedData["fightingSign"] as? Bool{
             fighting = fightingSign
@@ -150,63 +342,69 @@ class GameScene: SKScene {
         }
         
         //run while roundOver is true
-           guard fighting else {
-                            //set weapon before each round
-                if let index = receivedData["didSelectWeapon"] as? Int{
-            
-                    if index != -1 {
-                        OppArmedStat = true
+        guard fighting else {
+            //set weapon before each round
+            if let index = receivedData["didSelectWeapon"] as? Int{
                 
-                        if(selfArmedStat && OppArmedStat){
-                            setWeapon(selected_weapon)
-                        }
+                if index != -1 {
+                    OppArmedStat = true
+                    
+                    if(selfArmedStat && OppArmedStat){
+                        setWeapon(selected_weapon)
+                    }
+                    if index == 0 {
+                        oneAttackCircle(1)
+                    }
+                    else if index == 1 {
+                        rocketAttack(1)
+                    }
+                    else {
+                        oneAttackStraight(1)
                     }
                 }
-            
-                return
             }
+            
+            return
+        }
         
-
         
-
+        
+        
         // in fighting mode then you received the attacked
         if (fighting){
-        
-        if let location = receivedData["location"] as? NSValue{
-
-            oneDefenseCircle()
             
-            addSprite("crush1", location: location.CGPointValue(), scale: 0.4).runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.LittleBombName.rawValue, waitForCompletion: false))
-
-            attackCount++
-        }
-        
-            
-        if attackCount == 3 {loadAlert()}
-        
-        if attackCount == 5 {fighting = false;
-            
-            
-            //round three, game over
-            if (roundCount == 3) {
-                appDelegate.connector.sendData(["fightingSign": false])
-                appDelegate.connector.sendData(["gameOverSign": true])
-                gameOver = true
+            if let location = receivedData["location"] as? NSValue{
                 
-
-
-            }else{
-
-            appDelegate.connector.sendData(["fightingSign": false])
-
+                //oneDefenseCircle()
+                
+                addSprite("crush1", location: location.CGPointValue(), scale: 0.4).runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.LittleBombName.rawValue, waitForCompletion: false))
+                
+                attackCount++
             }
-            //statusLabel()
-            restartRound()
+            
+            
+            if attackCount == 3 {loadAlert()}
+            
+            if attackCount == 5 {fighting = false;
+                
+                
+                //round three, game over
+                if (roundCount == 3) {
+                    appDelegate.connector.sendData(["fightingSign": false])
+                    appDelegate.connector.sendData(["gameOverSign": true])
+                    gameOver = true
+                    
+                    
+                    
+                }else{
+                    
+                    appDelegate.connector.sendData(["fightingSign": false])
+                    
+                }
+                //statusLabel()
+                restartRound()
             }
         }
-        
-
-        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -227,56 +425,68 @@ class GameScene: SKScene {
             }
             return
         }
-    
+        
         for touch in touches {
             
             let location = touch.locationInNode(self)
             appDelegate.connector.sendData(["location": NSValue(CGPoint: location)])
             //set attacker amination
-//            let attackerNode = self.childNodeWithName("attackerNode")
-//            
-//            if(attackerNode != nil) {
-//                let animation = SKAction.animateWithTextures(attackerWHAnimation, timePerFrame: 0.02)
-//                attackerNode?.runAction(animation)
-//            }
+            //            let attackerNode = self.childNodeWithName("attackerNode")
+            //
+            //            if(attackerNode != nil) {
+            //                let animation = SKAction.animateWithTextures(attackerWHAnimation, timePerFrame: 0.02)
+            //                attackerNode?.runAction(animation)
+            //            }
             guard fighting else {
-
-            var n = true
-      
-            for (index,weapon) in weapons!.enumerate() {
-                if weapon.containsPoint(location){
-                    appDelegate.connector.sendData(["didSelectWeapon": index])
-                    n = false
-                    selfArmedStat = true
-                    
-                    weapon.alpha = 1.0
-                    selected_weapon = weapon
-                    weapon.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.SetWeaponAudioName.rawValue, waitForCompletion: true))
-                    boxGlowing(boxes, box_index: index)
-                    
-                    if(selfArmedStat == true && OppArmedStat == true){
-                        print("Fight!")
-
-                        setWeapon(selected_weapon)
+                
+                var n = true
+                
+                for (index,weapon) in weapons!.enumerate() {
+                    if weapon.containsPoint(location){
+                        appDelegate.connector.sendData(["didSelectWeapon": index])
+                        n = false
+                        selfArmedStat = true
                         
+                        
+                        if index == 0 {
+                            oneAttackCircle(0)
+                        }
+                        else if index == 1 {
+                            rocketAttack(0)
+                        }
+                        else  {
+                            oneAttackStraight(0)
+                        }
+                        
+                        weapon.alpha = 1.0
+                        selected_weapon = weapon
+                        weapon.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.SetWeaponAudioName.rawValue, waitForCompletion: true))
+                        boxGlowing(boxes, box_index: index)
+                        
+                        if(selfArmedStat == true && OppArmedStat == true){
+                            print("Fight!")
+                            
+                            setWeapon(selected_weapon)
+                            
+                        }
                     }
+                    else{
+                        weapon.alpha = 0.2
+                    }
+                 
                 }
-                else{
-                    weapon.alpha = 0.2
+                if n {
+                    boxStopGlowing(boxes)
+                    appDelegate.connector.sendData(["didSelectWeapon": Int(-1)])
                 }
-            }
-            if n {
-                boxStopGlowing(boxes)
-                appDelegate.connector.sendData(["didSelectWeapon": Int(-1)])
-            }
-            
+                
                 return
             }
-//
-
-          guard !fighting else {
-                oneAttackCircle()
-            return
+            //
+            
+            guard !fighting else {
+                // oneAttackCircle()
+                return
             }
             
         }
@@ -289,47 +499,62 @@ class GameScene: SKScene {
         
     }
     /* 準備使用 */
-    func oneAttackCircle(){
+    
+    
+    func oneAttackCircle(type: Int){
         let Circle = SKShapeNode(circleOfRadius: 50 )
-        
-        Circle.position = CGPointMake(frame.midX, frame.midY / 10)  //Middle of Screen
+        startX = self.view!.frame.size.width / xRatio
+        startY = self.view!.frame.size.height / yRatio
+        endX = self.view!.frame.size.width * (xRatio - 1.0) / xRatio
+        endY = self.view!.frame.size.height * (yRatio - 1.0) / yRatio
+        Circle.position = CGPointMake(startX, startY)
         Circle.strokeColor = SKColor.blackColor()
         Circle.glowWidth = 1.0
         Circle.fillColor = SKColor.orangeColor()
-        let spiral = SKAction.spiral(startRadius: 50,
-            endRadius: 0,
+        let spiral = SKAction.curve(startRadius: 20,
+            endRadius: 1,
             centerPoint: Circle.position,
             duration: 1.0,
-            type: 0)
+            type: type)
         Circle.runAction(spiral)
-        //Audio Effect
-        Circle.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.AttackAudioName.rawValue, waitForCompletion: false))
-        
         self.addChild(Circle)
     }
     
-    func oneDefenseCircle(){
-        let Circle = SKShapeNode(circleOfRadius: 50 )
-        
-        Circle.position = CGPointMake(frame.midX, frame.midY * 9 / 10)  //Middle of Screen
+    func rocketAttack(type: Int){
+        let Circle = SKShapeNode(circleOfRadius: 10 )
+        startX = self.view!.frame.size.width / xRatio
+        startY = self.view!.frame.size.height / yRatio
+        endX = self.view!.frame.size.width * (xRatio - 1.0) / xRatio
+        endY = self.view!.frame.size.height * (yRatio - 1.0) / yRatio
+        Circle.position = CGPointMake(startX, startY)
         Circle.strokeColor = SKColor.blackColor()
         Circle.glowWidth = 1.0
         Circle.fillColor = SKColor.orangeColor()
-    
-        let spiral = SKAction.spiral(startRadius: 20,
-            endRadius: 0,
-            centerPoint: Circle.position,
-            duration: 1.0,
-            type: 1)
+        let spiral = SKAction.rocketPath(startRadius: 10, endRadius: 6, upMost: self.view!.frame.size.height,duration: 2.0, type: type)
         Circle.runAction(spiral)
-        //Audio Effect
-        Circle.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.AttackedAudioName.rawValue, waitForCompletion: false))
         self.addChild(Circle)
     }
     
-    
+    func oneAttackStraight(type: Int){
+        let Circle = SKShapeNode(circleOfRadius: 50 )
+        startX = self.view!.frame.size.width / xRatio
+        startY = self.view!.frame.size.height / yRatio
+        Circle.position = CGPointMake(startX, startY)
+        Circle.strokeColor = SKColor.blackColor()
+        Circle.glowWidth = 1.0
+        Circle.fillColor = SKColor.darkTextColor()
+        let spiral = SKAction.curveOfStraight(startRadius: 20,
+            endRadius: 1,
+            centerPoint: Circle.position,
+            duration: 1.0,
+            type: type)
+        Circle.runAction(spiral)
+        self.addChild(Circle)
+        
+    }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 private extension GameScene {
     func loadBackground() {
         guard let _ = childNodeWithName("background") as! SKSpriteNode? else {
@@ -360,7 +585,7 @@ private extension GameScene {
         addChild(attacker)
         
     }
-
+    
     // Just put a rival for demo
     func loadHero() {
         let hero = SKSpriteNode(imageNamed: "cute")
@@ -376,11 +601,11 @@ private extension GameScene {
         addChild(hero)
     }
     
-
+    
     
     func loadWeapons(imageName:[String]){
         
-    
+        
         boxes = [
             addSprite("weapon_box", location: CGPoint(x: scene!.size.width-40,y: 195.0),scale: 0.4),
             addSprite("weapon_box", location: CGPoint(x: scene!.size.width-40,y: 130.0),scale: 0.4),
@@ -391,10 +616,10 @@ private extension GameScene {
             addSprite(weaponsStringArray[Int(imageName[0])!], location: CGPoint(x: scene!.size.width-40,y: 195.0),scale: 0.5),
             addSprite(weaponsStringArray[Int(imageName[1])!], location: CGPoint(x: scene!.size.width-40,y: 130.0),scale: 0.5),
             addSprite(weaponsStringArray[Int(imageName[2])!], location: CGPoint(x: scene!.size.width-40,y: 65.0),scale: 0.5),
-
+            
         ]
         
-
+        
         
     }
     
@@ -405,8 +630,8 @@ private extension GameScene {
             SKAction.scaleTo(2.0, duration: 2.0),SKAction.fadeOutWithDuration(2.0)]
         let ready_action_combine = SKAction.group(ready_action_array)
         
-//        label.text = statusName
-//        label.fontSize = 50
+        //        label.text = statusName
+        //        label.fontSize = 50
         label.position = CGPointMake(frame.midX, frame.midY)
         label.runAction(ready_action_combine)
         label.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.PowerUpAudioName.rawValue, waitForCompletion: false))
@@ -417,7 +642,7 @@ private extension GameScene {
     
     
     func setWeapon(weapon:SKSpriteNode){
-                
+        
         let path = UIBezierPath()
         path.moveToPoint(CGPointZero)
         path.addQuadCurveToPoint(CGPoint(x: -200, y: 0), controlPoint: CGPoint(x: -100, y: 200))
@@ -425,7 +650,7 @@ private extension GameScene {
         
         let rotate = SKAction.repeatAction(SKAction.rotateByAngle(CGFloat(M_PI), duration:0.1), count: 10)
         let route = SKAction.followPath(path.CGPath, asOffset: true, orientToPath: false, duration: 1.0)
-
+        
         let action_array:Array<SKAction> = [route, rotate]
         let combine = SKAction.group(action_array)
         
@@ -440,11 +665,11 @@ private extension GameScene {
         Ready.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.Round2Fight.rawValue, waitForCompletion: false))
         Ready.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
         addChild(Ready)
-
+        
         let ready_action_array:Array<SKAction> = [SKAction.fadeInWithDuration(1.0),
             SKAction.scaleTo(2.0, duration: 2.0),SKAction.fadeOutWithDuration(2.0)]
         let ready_action_combine = SKAction.group(ready_action_array)
-
+        
         
         Ready.runAction(ready_action_combine) { () -> Void in
             
@@ -471,18 +696,8 @@ private extension GameScene {
         }
         fighting = true
         roundCount++
-        
-        /*
-        let myLabel = SKLabelNode(fontNamed: "Arial")
-        myLabel.text = "Ready"
-        myLabel.fontSize = 50
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
-        
-        addChild(myLabel)
-        */
-
     }
-
+    
     func boxGlowing(boxes:[SKSpriteNode],box_index:Int){
         
         for (index, box) in boxes.enumerate() {
@@ -500,7 +715,7 @@ private extension GameScene {
         for box in boxes {
             box.texture = SKTexture(imageNamed: "weapon_box")
         }
-
+        
     }
     
     func showBeginText(){
@@ -521,26 +736,26 @@ private extension GameScene {
         })
     }
     
-//    func loadScore() {
-//        let scoreBand = SKLabelNode(fontNamed: "Arial")
-//        scoreBand.name = FaceoffGameSceneChildName.ScoreName.rawValue
-//        scoreBand.text = "0"
-//        scoreBand.position = CGPointMake(frame.midX, DefinedScreenHeight / 2 - 200)
-//        scoreBand.fontColor = SKColor.whiteColor()
-//        scoreBand.fontSize = 100
-//        scoreBand.zPosition = FaceoffGameSceneZposition.ScoreZposition.rawValue
-//        scoreBand.horizontalAlignmentMode = .Center
-//        
-//        addChild(scoreBand)
-//    }
-//    
-//    func loadScoreBackground() {
-//        let back = SKShapeNode(rect: CGRectMake(0-120, 1024-200-30, 240, 140), cornerRadius: 20)
-//        back.zPosition = FaceoffGameSceneZposition.ScoreBackgroundZposition.rawValue
-//        back.fillColor = SKColor.blackColor().colorWithAlphaComponent(0.3)
-//        back.strokeColor = SKColor.blackColor().colorWithAlphaComponent(0.3)
-//        addChild(back)
-//    }
+    //    func loadScore() {
+    //        let scoreBand = SKLabelNode(fontNamed: "Arial")
+    //        scoreBand.name = FaceoffGameSceneChildName.ScoreName.rawValue
+    //        scoreBand.text = "0"
+    //        scoreBand.position = CGPointMake(frame.midX, DefinedScreenHeight / 2 - 200)
+    //        scoreBand.fontColor = SKColor.whiteColor()
+    //        scoreBand.fontSize = 100
+    //        scoreBand.zPosition = FaceoffGameSceneZposition.ScoreZposition.rawValue
+    //        scoreBand.horizontalAlignmentMode = .Center
+    //
+    //        addChild(scoreBand)
+    //    }
+    //
+    //    func loadScoreBackground() {
+    //        let back = SKShapeNode(rect: CGRectMake(0-120, 1024-200-30, 240, 140), cornerRadius: 20)
+    //        back.zPosition = FaceoffGameSceneZposition.ScoreBackgroundZposition.rawValue
+    //        back.fillColor = SKColor.blackColor().colorWithAlphaComponent(0.3)
+    //        back.strokeColor = SKColor.blackColor().colorWithAlphaComponent(0.3)
+    //        addChild(back)
+    //    }
     
     func loadGameOverLayer() {
         let node = SKNode()
@@ -552,8 +767,8 @@ private extension GameScene {
         let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = "GAME OVER"
         //you lost or you win
-//        if (yourpoint > oppoint) label.text = "YOU WIN"
-//        else lable.text = "YOU LOST"
+        //        if (yourpoint > oppoint) label.text = "YOU WIN"
+        //        else lable.text = "YOU LOST"
         
         label.fontColor = SKColor.redColor()
         label.fontSize = 50
