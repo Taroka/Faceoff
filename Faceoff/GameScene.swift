@@ -66,6 +66,7 @@ class GameScene: SKScene {
         attackCount = 0
         fighting = false
         //score = 0
+        statusLabel()
         removeAllChildren()
         start()
     }
@@ -110,33 +111,29 @@ class GameScene: SKScene {
 
         //set restart while the game is overs
         if let gameOverSign = receivedData["gameOverSign"] as? Bool{
+
+                gameOver = gameOverSign
             
-            if (gameOverSign) {
-                print("gameGG")
-                gameOver = true
-                guard !gameOver else {
-                    let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
-                    
-                    let location = CGPoint(x: frame.midX, y: frame.midY)
-                    let retry = gameOverLayer!.nodeAtPoint(location)
-                    
-                    
-                    if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
-                        retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
-                            self.restart()
-                            })
-                    }
-                    return
+
+                let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
+                print("gameOveron receiveRemote")
+                let location = CGPoint(x: frame.midX, y: frame.maxY * 0.6)
+                let retry = gameOverLayer!.nodeAtPoint(location)
+                
+                
+                if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
+                    retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
+                        self.restart()
+                        })
                 }
-            }
+            
         }
+
         
         if let fightingSign = receivedData["fightingSign"] as? Bool{
             fighting = fightingSign
             print("fightingSign: ", fighting)
-           // statusLabel()
             restartRound()
-            //roundOver = true
         }
         
         //run while roundOver is true
@@ -182,10 +179,13 @@ class GameScene: SKScene {
                 appDelegate.connector.sendData(["fightingSign": false])
                 appDelegate.connector.sendData(["gameOverSign": true])
                 gameOver = true
+                
+
+
             }else{
-           // appDelegate.connector.sendData(["roundOverSign": true])
+
             appDelegate.connector.sendData(["fightingSign": false])
-            //fighting = false
+
             }
             //statusLabel()
             restartRound()
@@ -203,9 +203,9 @@ class GameScene: SKScene {
         guard !gameOver else {
             let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
             
-            let location = CGPoint(x: frame.midX, y: frame.midY)
-            let retry = gameOverLayer!.nodeAtPoint(location)
-            
+            let location = touches.first?.locationInNode(gameOverLayer!)
+            let retry = gameOverLayer!.nodeAtPoint(location!)
+            print("gameOveron touchesBegan")
             
             if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
                 retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
@@ -515,7 +515,7 @@ private extension GameScene {
         node.zPosition = FaceoffGameSceneZposition.GameOverZposition.rawValue
         addChild(node)
         
-        let label = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = "GAME OVER"
         //you lost or you win
 //        if (yourpoint > oppoint) label.text = "YOU WIN"

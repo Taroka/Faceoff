@@ -253,7 +253,7 @@ class SelectWeaponScene: SKScene {
                             if(eachChild.name == String(arrayOfStrings.count-1)){
                                 let enlarge = SKAction.scaleTo(1.5, duration:0.5)
                                 eachChild.runAction(enlarge)
-                                eachChild.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+                                
                             }
                             if(eachChild.name == "0"){
                                 let shrink = SKAction.scaleTo(0.5, duration:0.5)
@@ -277,6 +277,8 @@ class SelectWeaponScene: SKScene {
             
             if select_btn.containsPoint(location) {
                 
+                select_btn.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+
                 switch(select_count){
                 case 0:
                     Weapon1.texture = SKTexture(imageNamed: arrayOfStrings[count])
@@ -470,9 +472,13 @@ class SelectWeaponScene: SKScene {
         
         if(RorL==1){
             weapon.runAction(moveToLeft)
+            weapon.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+
         }
         else{
             weapon.runAction(moveToRight)
+            weapon.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+
         }
         
     }
