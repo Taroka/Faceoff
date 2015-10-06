@@ -71,7 +71,7 @@ class GameScene: SKScene {
     }
     func restartRound() {
         attackCount = 0
-        //score = 0
+        
         removeAllChildren()
         start()
     }
@@ -107,16 +107,34 @@ class GameScene: SKScene {
     func receiveRemoteData(notification: NSNotification){
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
-        //detect 回合開始了嗎 roundOver == true >> choose weapon again
-//        if let roundOverSign = receivedData["roundOverSign"] as? Bool{
-//            roundOver = roundOverSign
-//            
-//            print("roundOver: ", roundOver)
-//            //roundOver = true
-//        }
+
+        //set restart while the game is overs
+        if let gameOverSign = receivedData["gameOverSign"] as? Bool{
+            
+            if (gameOverSign) {
+                print("gameGG")
+                gameOver = true
+                guard !gameOver else {
+                    let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
+                    
+                    let location = CGPoint(x: frame.midX, y: frame.midY)
+                    let retry = gameOverLayer!.nodeAtPoint(location)
+                    
+                    
+                    if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
+                        retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
+                            self.restart()
+                            })
+                    }
+                    return
+                }
+            }
+        }
+        
         if let fightingSign = receivedData["fightingSign"] as? Bool{
             fighting = fightingSign
             print("fightingSign: ", fighting)
+            statusLabel()
             restartRound()
             //roundOver = true
         }
@@ -141,28 +159,7 @@ class GameScene: SKScene {
                 return
             }
         
-        //set restart while the game is overs
-        if let gameOverSign = receivedData["gameOverSign"] as? Bool{
-            
-            if (gameOverSign) {
-                print("gameGG")
-                gameOver = true
-                guard !gameOver else {
-                    let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
-                    
-                    let location = CGPoint(x: frame.midX, y: frame.midY)
-                    let retry = gameOverLayer!.nodeAtPoint(location)
-                    
-                    
-                    if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
-                        retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
-                            self.restart()
-                            })
-                    }
-                    return
-                }
-                }
-            }
+
         
 
         // in fighting mode then you received the attacked
@@ -186,13 +183,13 @@ class GameScene: SKScene {
             if (roundCount == 3) {
                 appDelegate.connector.sendData(["fightingSign": false])
                 appDelegate.connector.sendData(["gameOverSign": true])
-
+                gameOver = true
             }else{
            // appDelegate.connector.sendData(["roundOverSign": true])
             appDelegate.connector.sendData(["fightingSign": false])
             //fighting = false
             }
-            
+            statusLabel()
             restartRound()
             }
         }
@@ -243,6 +240,7 @@ class GameScene: SKScene {
                     
                     weapon.alpha = 1.0
                     selected_weapon = weapon
+                    weapon.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.SetWeaponAudioName.rawValue, waitForCompletion: true))
                     boxGlowing(boxes, box_index: index)
                     
                     if(selfArmedStat == true && OppArmedStat == true){
@@ -388,6 +386,25 @@ private extension GameScene {
 
         
     }
+    
+    
+    func statusLabel() -> SKSpriteNode{
+        let label = SKSpriteNode(imageNamed: "win")
+        let ready_action_array:Array<SKAction> = [SKAction.fadeInWithDuration(1.0),
+            SKAction.scaleTo(2.0, duration: 2.0),SKAction.fadeOutWithDuration(2.0)]
+        let ready_action_combine = SKAction.group(ready_action_array)
+        
+//        label.text = statusName
+//        label.fontSize = 50
+        label.position = CGPointMake(frame.midX, frame.midY)
+        label.runAction(ready_action_combine)
+        label.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.PowerUpAudioName.rawValue, waitForCompletion: false))
+        
+        addChild(label)
+        return label
+    }
+    
+    
     func setWeapon(weapon:SKSpriteNode){
                 
         let path = UIBezierPath()
@@ -409,6 +426,7 @@ private extension GameScene {
         let Ready = SKSpriteNode(imageNamed:"Ready")
         Ready.xScale = 0.5
         Ready.yScale = 0.5
+        Ready.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.Round2Fight.rawValue, waitForCompletion: false))
         Ready.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
         addChild(Ready)
 
