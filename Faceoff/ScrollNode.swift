@@ -53,8 +53,8 @@ class ScrollNode: SKNode{
     
     func setScrollingView(view: SKView){
         
-        recognizer = UIPanGestureRecognizer(target: self, action:Selector("handlePan:"))
-        view.addGestureRecognizer(recognizer!)
+//        recognizer = UIPanGestureRecognizer(target: self, action:Selector("handlePan:"))
+//        view.addGestureRecognizer(recognizer!)
         
     }
     

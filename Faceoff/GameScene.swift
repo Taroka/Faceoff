@@ -49,22 +49,37 @@ extension SKAction {
             let action = SKAction.customActionWithDuration(duration) { node, time in
                 // The equation, r = a + bθ
                 let radius = startRadius -  (startRadius - endRadius) * (time / CGFloat(duration))
-                let pos = position(centerPoint, time: time, duration: duration, type: type)
+                
                 if type == 0 {
+                    let pos = position(centerPoint, time: time, duration: duration, type: type)
                     node.position = pos
                     node.setScale(radius * 0.8 / startRadius)
                     if node.position.x > startX * 3 {
                         node.removeFromParent()
                         print("remove")
+                        print(time)
                     }
                 } else {
-                    node.position = CGPoint(x:screen_w - pos.x, y:screen_h - pos.y)
+                    let pos = position(centerPoint, time: 0.866585-time, duration: duration, type: type)
+                    node.position = CGPoint(x:pos.x, y:pos.y)
                     node.setScale((startRadius - radius) * 0.8 / startRadius)
-                    if(node.position.x < startX) {
+                    if(node.position.x > startX && node.position.y < startY) {
                         node.removeFromParent()
                         print("remove")
                     }
                 }
+                //let scale = (startRadius - radius) * 0.8 / startRadius
+                //var data = scale
+                //data += Int(node.position.x * 10) + Int(node.position.y * 10 * 10000)
+                //var data: Int = 0
+                //data += Int(scale * 100.0)
+                //data += Int(node.position.x) * 100
+                //data += Int(node.position.y) * 100 * 10000
+                //print(scale)
+                //print(node.position.x)
+                //print(node.position.y)
+                //print(data)
+                //appDelegate.connector.sendData(["attack": data])
                 
                 if time == CGFloat(duration) {
                     print("remove")
@@ -83,7 +98,6 @@ extension SKAction {
                 
                 var x: CGFloat = 0.0
                 var y: CGFloat = 0.0
-                
                 if type == 0 {
                     y = v0y * time + 0.5 * a * time * time + startY
                     if v0y + a * time > 0 {
@@ -97,21 +111,22 @@ extension SKAction {
                         print("remove")
                         node.removeFromParent()
                     }
+                }else {
+                    y = v0y * 0.75 * time + 0.5 * a * time * time + endY
+                    if v0y * 0.75 + a * time > 0 {
+                        x = endX
+                        node.setScale(endRadius / startRadius)
+                    } else {
+                        x = startX
+                        node.setScale(startRadius / endRadius)
+                        
+                    }
+                    node.position = CGPoint(x: x, y: y)
+                    if x == startX && y <= startY {
+                        print("remove")
+                        node.removeFromParent()
+                    }
                 }
-                /*else {
-                y = v0y * time + 0.5 * a * time * time + endY
-                if v0y + a * time > 0 {
-                x = endX
-                node.setScale(endRadius / startRadius)
-                } else {
-                x = startX
-                }
-                node.position = CGPoint(x: x, y: y)
-                if x == startX && y >= startY {
-                print("remove")
-                node.removeFromParent()
-                }
-                }*/
             }
             
             return action
@@ -236,11 +251,13 @@ class GameScene: SKScene {
     }
     
     func start() {
+        
         loadBackground()
         loadHero()
         //        loadScoreBackground()
         //        loadScore()
         // loadAttacker()
+        self.initAttackerWHScene()
         loadGameOverLayer()
         
         
@@ -406,6 +423,15 @@ class GameScene: SKScene {
             }
         }
     }
+    /* Set up level */
+    func initAttackerWHScene() {
+        let attackerWHAtlas = SKTextureAtlas(named: "attackerWH")
+        
+        for index in 1...attackerWHAtlas.textureNames.count {
+            let imgName = String(format: "attackerWH%01d", index)
+            attackerWHAnimation += [attackerWHAtlas.textureNamed(imgName)]
+        }
+    }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
@@ -457,6 +483,15 @@ class GameScene: SKScene {
                         else  {
                             oneAttackStraight(0)
                         }
+                        
+                        
+                        
+//                        func setWeaponPath(weaponIndex: Int){
+//                            
+//                        }
+                        
+                        
+                        
                         
                         weapon.alpha = 1.0
                         selected_weapon = weapon
