@@ -308,6 +308,7 @@ class SelectWeaponScene: SKScene {
             }
             
             if confirm_btn.containsPoint(location) {
+                confirm_btn.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                 let nextScene = GameScene(size: scene!.size)
                 nextScene.scaleMode = SKSceneScaleMode.AspectFill
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)

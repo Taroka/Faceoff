@@ -27,7 +27,7 @@ class GameScene: SKScene {
     var roundOver = true
     
     
-    var gameOver = false {
+    var gameOver = false{
         willSet {
             if (newValue) {
                 let gameOverLayer = childNodeWithName(FaceoffGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
@@ -36,7 +36,19 @@ class GameScene: SKScene {
             
         }
     }
-    
+    var score:Int = 0 {
+        willSet {
+            let scoreBand = childNodeWithName(FaceoffGameSceneChildName.ScoreName.rawValue) as? SKLabelNode
+            scoreBand?.text = "\(newValue)"
+            scoreBand?.runAction(SKAction.sequence([SKAction.scaleTo(1.5, duration: 0.1), SKAction.scaleTo(1, duration: 0.1)]))
+            
+            if (newValue == 1) {
+                let tip = childNodeWithName(FaceoffGameSceneChildName.TipName.rawValue) as? SKLabelNode
+                tip?.runAction(SKAction.fadeAlphaTo(0, duration: 0.4))
+            }
+        }
+    }
+
     
     
     override func didMoveToView(view: SKView) {
@@ -48,6 +60,8 @@ class GameScene: SKScene {
     func start() {
         loadBackground()
         loadHero()
+//        loadScoreBackground()
+//        loadScore()
        // loadAttacker()
         loadGameOverLayer()
         
@@ -65,7 +79,7 @@ class GameScene: SKScene {
         gameOver = false
         attackCount = 0
         fighting = false
-        //score = 0
+        score = 0
         statusLabel()
         removeAllChildren()
         start()
@@ -119,8 +133,7 @@ class GameScene: SKScene {
                 print("gameOveron receiveRemote")
                 let location = CGPoint(x: frame.midX, y: frame.maxY * 0.6)
                 let retry = gameOverLayer!.nodeAtPoint(location)
-                
-                
+
                 if (retry.name == FaceoffGameSceneChildName.RetryButtonName.rawValue) {
                     retry.runAction(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.waitForDuration(0.3)]), completion: {[unowned self] () -> Void in
                         self.restart()
@@ -507,6 +520,27 @@ private extension GameScene {
             emitter?.runAction(wait)
         })
     }
+    
+//    func loadScore() {
+//        let scoreBand = SKLabelNode(fontNamed: "Arial")
+//        scoreBand.name = FaceoffGameSceneChildName.ScoreName.rawValue
+//        scoreBand.text = "0"
+//        scoreBand.position = CGPointMake(frame.midX, DefinedScreenHeight / 2 - 200)
+//        scoreBand.fontColor = SKColor.whiteColor()
+//        scoreBand.fontSize = 100
+//        scoreBand.zPosition = FaceoffGameSceneZposition.ScoreZposition.rawValue
+//        scoreBand.horizontalAlignmentMode = .Center
+//        
+//        addChild(scoreBand)
+//    }
+//    
+//    func loadScoreBackground() {
+//        let back = SKShapeNode(rect: CGRectMake(0-120, 1024-200-30, 240, 140), cornerRadius: 20)
+//        back.zPosition = FaceoffGameSceneZposition.ScoreBackgroundZposition.rawValue
+//        back.fillColor = SKColor.blackColor().colorWithAlphaComponent(0.3)
+//        back.strokeColor = SKColor.blackColor().colorWithAlphaComponent(0.3)
+//        addChild(back)
+//    }
     
     func loadGameOverLayer() {
         let node = SKNode()
