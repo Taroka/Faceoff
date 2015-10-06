@@ -50,6 +50,7 @@ class PlayModeScene: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let location = touches.first?.locationInNode(self){
             if 選擇單人遊戲按鈕.containsPoint(location){
+                選擇單人遊戲按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                 print("single play")
                 let nextScene = SelectWeaponScene(size: scene!.size)
                 nextScene.backgroundColor = UIColor.grayColor()
@@ -57,12 +58,14 @@ class PlayModeScene: SKScene {
                 transitionForNextScene(nextScene)
                 
             }else if 選擇雙人遊戲按鈕.containsPoint(location){
+                選擇雙人遊戲按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                 print("multiplayer")
                 let nextScene = PlayerListScene(size: scene!.size)
                 nextScene.scaleMode = SKSceneScaleMode.AspectFill
                 transitionForNextScene(nextScene)
                 
             }else if 返回按鈕.containsPoint(location){
+                返回按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                 let nextScene = MainScene(size: scene!.size)
                 nextScene.scaleMode = SKSceneScaleMode.AspectFill
                 transitionForNextScene(nextScene)

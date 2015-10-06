@@ -34,6 +34,7 @@ class MainScene: SKScene, UINavigationControllerDelegate, UIImagePickerControlle
         製造角色按鈕.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGRectGetMidY(self.frame)+CGFloat(25.0))
         addChild(製造角色按鈕)
         
+        
         let 製造角色文字 = SKLabelNode(fontNamed:"Chalkduster")
         製造角色文字.text = "Create a character";
         製造角色文字.fontSize = 14;
@@ -42,21 +43,26 @@ class MainScene: SKScene, UINavigationControllerDelegate, UIImagePickerControlle
         
         進入遊戲按鈕 = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200, height: 40))
         進入遊戲按鈕.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGRectGetMidY(self.frame)-CGFloat(25.0))
-        addChild(進入遊戲按鈕)
+                addChild(進入遊戲按鈕)
         
         let 進入遊戲文字 = SKLabelNode(fontNamed:"Chalkduster")
         進入遊戲文字.text = "Play";
         進入遊戲文字.fontSize = 14;
         進入遊戲文字.position = CGPoint(x:CGFloat(0),y:CGFloat(-5))
+        
         進入遊戲按鈕.addChild(進入遊戲文字)
         
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let location = touches.first?.locationInNode(self){
             if 製造角色按鈕.containsPoint(location){
+                製造角色按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+
                 //takePictures()
             }
             if 進入遊戲按鈕.containsPoint(location){
+                進入遊戲按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+                
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
                 
                 let nextScene = PlayModeScene(size: scene!.size)

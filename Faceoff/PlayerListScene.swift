@@ -64,10 +64,7 @@ class PlayerListScene: SKScene {
     
     func foundPeer(notification: NSNotification){
         updateScene()
-      //  statusLabel("Found Peer")
-        
-
-
+      
         print("foundPeer",peers)
     }
     func losePeer(notification: NSNotification){
@@ -96,6 +93,7 @@ class PlayerListScene: SKScene {
                     for peer in peers! {
                         if peer.displayName == (peerNode as! SKLabelNode).text {
                             connector.invitePeer(peer)
+                            
                             statusLabel("Connecting....")
                         }
                     }

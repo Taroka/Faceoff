@@ -134,17 +134,14 @@ class GameScene: SKScene {
         if let fightingSign = receivedData["fightingSign"] as? Bool{
             fighting = fightingSign
             print("fightingSign: ", fighting)
-            statusLabel()
+           // statusLabel()
             restartRound()
             //roundOver = true
         }
         
         //run while roundOver is true
            guard fighting else {
-                print("guartfighting")
-       //         roundOver = false // reset a round
-
-                //set weapon before each round
+                            //set weapon before each round
                 if let index = receivedData["didSelectWeapon"] as? Int{
             
                     if index != -1 {
@@ -174,6 +171,7 @@ class GameScene: SKScene {
             attackCount++
         }
         
+            
         if attackCount == 3 {loadAlert()}
         
         if attackCount == 5 {fighting = false;
@@ -189,7 +187,7 @@ class GameScene: SKScene {
             appDelegate.connector.sendData(["fightingSign": false])
             //fighting = false
             }
-            statusLabel()
+            //statusLabel()
             restartRound()
             }
         }

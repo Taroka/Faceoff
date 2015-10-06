@@ -165,6 +165,7 @@ class SelectWeaponScene: SKScene {
             
             sprite.xScale = 0.5
             sprite.yScale = 0.5
+            sprite.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
             sprite.position = location
         }
     }
@@ -252,6 +253,7 @@ class SelectWeaponScene: SKScene {
                             if(eachChild.name == String(arrayOfStrings.count-1)){
                                 let enlarge = SKAction.scaleTo(1.5, duration:0.5)
                                 eachChild.runAction(enlarge)
+                                eachChild.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                             }
                             if(eachChild.name == "0"){
                                 let shrink = SKAction.scaleTo(0.5, duration:0.5)
