@@ -206,7 +206,7 @@
 				TargetAttributes = {
 					0A11F8101BAFC1DD004605DB = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 5XLQ67P82L;
+						DevelopmentTeam = R7F265Z9Q7;
 					};
 					0A11F8281BAFC1DD004605DB = {
 						CreatedOnToolsVersion = 7.0;
@@ -417,10 +417,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Faceoff/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = huaying.Faceoff;
+				PRODUCT_BUNDLE_IDENTIFIER = qiming.Faceoff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -428,10 +432,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Faceoff/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = huaying.Faceoff;
+				PRODUCT_BUNDLE_IDENTIFIER = qiming.Faceoff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -504,6 +512,7 @@
 				0A11F83F1BAFC1DD004605DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A11F8401BAFC1DD004605DB /* Build configuration list for PBXNativeTarget "FaceoffTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +521,7 @@
 				0A11F8421BAFC1DD004605DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A11F8431BAFC1DD004605DB /* Build configuration list for PBXNativeTarget "FaceoffUITests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +530,7 @@
 				0A11F8451BAFC1DD004605DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
