@@ -8,6 +8,11 @@
 
 import SpriteKit
 import MultipeerConnectivity
+import Foundation
+//import CoreFoundation
+//import SystemConfiguration.CaptiveNetwork
+
+
 
 class PlayerListScene: SKScene {
     
@@ -17,17 +22,32 @@ class PlayerListScene: SKScene {
     var peers: [MCPeerID]?
     var scrollnode = ScrollNode()
     var statusnode = SKLabelNode(fontNamed: "Chalkduster")
-    
+    var currentNetwork = SKLabelNode(fontNamed: "Chalkduster")
+   
+
     override func didMoveToView(view: SKView) {
+        
+//        
+//        for interface in CNCopySupportedInterfaces().takeRetainedValue() as! [String] {
+//            println("Looking up SSID info for \(interface)") // en0
+//            let SSIDDict = CNCopyCurrentNetworkInfo(interface).takeRetainedValue() as! [String : AnyObject]
+//            for d in SSIDDict.keys {
+//                println("\(d): \(SSIDDict[d]!)")
+//            }
+//        }
+        
         
         connector = appDelegate.connector
         connector.start()
+        
+  
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "foundPeer:", name: "foundPeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connected:", name: "connectNotification", object: nil)
        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "invited:", name: "invitedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "connecting:", name: "connectingNotification", object: nil)
         
  
         addChild(scrollnode)
@@ -40,6 +60,9 @@ class PlayerListScene: SKScene {
         updateScene()
        
     }
+    
+    
+    
     
     func updateScene(){
         scrollnode.removeAllChildren()
@@ -85,6 +108,12 @@ class PlayerListScene: SKScene {
         
     }
     
+    func connecting(notification: NSNotification){
+        updateScene()
+        statusLabel("Connecting...")
+        
+    }
+    
     
     func connected(notification: NSNotification){
         print("connected")
@@ -93,6 +122,7 @@ class PlayerListScene: SKScene {
         transitionForNextScene()
     }
     
+
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let location = touches.first?.locationInNode(scrollnode){
@@ -102,8 +132,8 @@ class PlayerListScene: SKScene {
                     for peer in peers! {
                         if peer.displayName == (peerNode as! SKLabelNode).text {
                             connector.invitePeer(peer)
-                            
                             statusLabel("Invite!")
+
                         }
                     }
                 }

@@ -14,6 +14,7 @@ protocol MPCManagerDelegate {
     func losePeer()
     func invited(fromPeer: MCPeerID)
     func connected(peerID: MCPeerID)
+    func connecting(peerID: MCPeerID)
     func reiceveData(data: NSData)
 }
 
@@ -83,6 +84,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate
             delegate?.connected(peerID)
             break
         case MCSessionState.Connecting:
+            delegate?.connecting(peerID)
             print("Connecting to session: \(session)")
             
       

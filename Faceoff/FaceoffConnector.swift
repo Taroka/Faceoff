@@ -63,17 +63,23 @@ class FaceoffConnector: MPCManagerDelegate{
         NSNotificationCenter.defaultCenter().postNotificationName("connectNotification", object: peerID)
     }
     
+    func connecting(peerID: MCPeerID){
+        NSNotificationCenter.defaultCenter().postNotificationName("connectingNotification", object: peerID)
+    }
+    
     func sendData(data: Dictionary<String, AnyObject>){
         let serializerData = NSKeyedArchiver.archivedDataWithRootObject(data)
 
         do {
             try mpcManager.session.sendData(serializerData, toPeers: mpcManager.foundPeers, withMode: MCSessionSendDataMode.Reliable)
+            
         } catch let error as NSError{
             print(error.localizedDescription)
         }
     }
     func reiceveData(data: NSData) {
         NSNotificationCenter.defaultCenter().postNotificationName("receivedRemoteDataNotification", object: data)
+        
     }
     
     // MARK: Custom method implementation
@@ -81,6 +87,8 @@ class FaceoffConnector: MPCManagerDelegate{
         print("invite")
         mpcManager.browser.invitePeer(peerID, toSession: mpcManager.session, withContext: nil, timeout: 20)
     }
+    
+
     
     func getPeers() -> [MCPeerID]{
         return mpcManager.foundPeers

@@ -2,6 +2,8 @@
 
 import Cocoa
 
+import SystemConfiguration
+
 var str = "Hello, playground"
 var numbers = [2,4,3]
 
