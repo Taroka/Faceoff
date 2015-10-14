@@ -16,6 +16,7 @@ class PlayerListScene: SKScene {
     var connector: FaceoffConnector!
     var peers: [MCPeerID]?
     var scrollnode = ScrollNode()
+    var statusnode = SKLabelNode(fontNamed: "Chalkduster")
     
     override func didMoveToView(view: SKView) {
         
@@ -26,6 +27,11 @@ class PlayerListScene: SKScene {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connected:", name: "connectNotification", object: nil)
         addChild(scrollnode)
+        
+        statusnode.fontSize = 50
+        statusnode.position = CGPointMake(frame.midX, frame.midY)
+        statusnode.text = "你好"
+        addChild(statusnode)
         scrollnode.setScrollingView(view)
         updateScene()
        
@@ -53,12 +59,11 @@ class PlayerListScene: SKScene {
     }
     
     func statusLabel(statusName: String) -> SKLabelNode{
-        let label = SKLabelNode(fontNamed: "Chalkduster")
-        label.text = statusName
-        label.fontSize = 50
-        label.position = CGPointMake(frame.midX, frame.midY)
-        self.addChild(label)
-        return label
+      //  let label = SKLabelNode(fontNamed: "Chalkduster")
+        statusnode.text = statusName
+
+       // self.addChild(statusnode)
+        return statusnode
     }
     
     
