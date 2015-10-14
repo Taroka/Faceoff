@@ -52,6 +52,9 @@ class FaceoffConnector: MPCManagerDelegate{
     
     func invited(fromPeer: MCPeerID) {
         print("invited")
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("invitedNotification", object: fromPeer)
+
         mpcManager.invitationHandler(true,mpcManager.session)
     }
     

@@ -26,11 +26,15 @@ class PlayerListScene: SKScene {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "foundPeer:", name: "foundPeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "connected:", name: "connectNotification", object: nil)
+       
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "invited:", name: "invitedNotification", object: nil)
+        
+ 
         addChild(scrollnode)
         
         statusnode.fontSize = 50
         statusnode.position = CGPointMake(frame.midX, frame.midY)
-        statusnode.text = "你好"
+        statusnode.text = "Hi"
         addChild(statusnode)
         scrollnode.setScrollingView(view)
         updateScene()
@@ -49,13 +53,6 @@ class PlayerListScene: SKScene {
                 scrollnode.addChild(peerNode)
                 }
         }
-//        let list = [String](count: 20, repeatedValue: "DisplayName")
-//        for (i,el) in list.enumerate() {
-//            let peerNode = SKLabelNode()
-//            peerNode.text = el;
-//            peerNode.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGFloat(i*40)+50)
-//            scrollnode.addChild(peerNode)
-//        }
     }
     
     func statusLabel(statusName: String) -> SKLabelNode{
@@ -81,12 +78,18 @@ class PlayerListScene: SKScene {
         print("losePeer",peers)
 
     }
+    
+    func invited(notification: NSNotification){
+        updateScene()
+        statusLabel("Invited!")
+        
+    }
+    
+    
     func connected(notification: NSNotification){
         print("connected")
         
         statusLabel("Connected")
-
-        
         transitionForNextScene()
     }
     
@@ -100,7 +103,7 @@ class PlayerListScene: SKScene {
                         if peer.displayName == (peerNode as! SKLabelNode).text {
                             connector.invitePeer(peer)
                             
-                            statusLabel("Connecting....")
+                            statusLabel("Invite!")
                         }
                     }
                 }
