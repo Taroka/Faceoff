@@ -59,16 +59,17 @@ class PlayerListScene: SKScene {
     }
     
     func statusLabel(statusName: String) -> SKLabelNode{
-      //  let label = SKLabelNode(fontNamed: "Chalkduster")
+
         statusnode.text = statusName
 
-       // self.addChild(statusnode)
         return statusnode
     }
     
     
     func foundPeer(notification: NSNotification){
         updateScene()
+        
+        //statusLabel("Found Peer")
       
         print("foundPeer",peers)
     }
