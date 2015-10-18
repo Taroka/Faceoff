@@ -125,20 +125,19 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    func sentData(key: String, value: AnyObject){
+        appDelegate.connector.sendData([key: value])
+    }
+    
     
     func receiveRemoteData(notification: NSNotification){
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
         
         if let gameOverSign = receivedData["gameOverSign"] as? Bool{
-            
-            var gameOver = gameOverSign
-            //just for demo 用法
+            //do something
             
             }
-
-
-        
         
     }
     
@@ -327,6 +326,13 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
         healthLabel.position = CGPointMake(self.frame.size.width / 2, self.size.height - (80 + healthLabel.frame.size.height / 2))
         self.addChild(healthLabel)
     }
+    
+    
+
+    
+    
+    
+    
     
     
     func makeBulletOfType(bulletType: BulletType) -> SKNode! {
