@@ -13,7 +13,7 @@
         var connector: FaceoffConnector!
         
         func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-            // Override point for customization after application launch.
+            // Override point for c ustomization after application launch.
             
             
             connector = FaceoffConnector()

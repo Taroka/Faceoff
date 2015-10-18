@@ -30,7 +30,8 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     let kShipCategory: UInt32 = 0x1 << 2
     let kSceneEdgeCategory: UInt32 = 0x1 << 3
     let kInvaderFiredBulletCategory: UInt32 = 0x1 << 4
-    
+    var statusnode = SKLabelNode(fontNamed: "Chalkduster")
+
     // Bullet type
     enum BulletType {
         case ShipFired
@@ -108,7 +109,10 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveRemoteData:", name: "receivedRemoteDataNotification", object: nil)
         
-        
+        statusnode.fontSize = 50
+        statusnode.position = CGPointMake(frame.midX, frame.midY)
+        statusnode.text = ""
+        addChild(statusnode)
         
         if (!self.contentCreated) {
             self.createContent()
@@ -125,7 +129,7 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func sentData(key: String, value: AnyObject){
+    func sentDataLA(key: String, value: AnyObject){
         appDelegate.connector.sendData([key: value])
     }
     
@@ -134,8 +138,9 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
         
-        if let gameOverSign = receivedData["gameOverSign"] as? Bool{
+        if let _ = receivedData["fire"] as? Bool{
             //do something
+            statusLabel("Attacked QQ")
             
             }
         
@@ -145,6 +150,9 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     func losePeer(notification: NSNotification){
 
         print("Lose Peer...")
+        
+        statusLabel("Lose Peer...")
+        
         
     }
     func createContent() {
@@ -352,6 +360,7 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
             bullet.physicsBody!.contactTestBitMask = kInvaderCategory
             bullet.physicsBody!.collisionBitMask = 0x0
             
+            
         case .InvaderFired:
             bullet = SKSpriteNode(color: SKColor.magentaColor(), size: kBulletSize)
             bullet.name = kInvaderFiredBulletName
@@ -526,6 +535,12 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func statusLabel(statusName: String) -> SKLabelNode{
+        
+        statusnode.text = statusName
+        
+        return statusnode
+    }
     
     func processContactsForUpdate(currentTime: CFTimeInterval) {
         
@@ -629,6 +644,11 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
         
         // 4
         self.addChild(bullet)
+        
+        statusLabel("fire!")
+        appDelegate.connector.sendData(["Fire": true])
+
+        
     }
     
     func fireShipBullets() {
@@ -660,11 +680,14 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     // User Tap Helpers
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        sentDataLA("beginStupid", value: "StupidBegin!")
         // Intentional no-op
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)  {
         // Intentional no-op
+        sentDataLA("movedFuck", value: "FuckMoved!")
     }
     
     override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
