@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		7166B8871BD2D289009F1BA6 /* prof@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7166B8861BD2D288009F1BA6 /* prof@2x.png */; settings = {ASSET_TAGS = (); }; };
+		A38E4E391BD4107A002FC97A /* FaceoffConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E341BD4107A002FC97A /* FaceoffConnector.swift */; settings = {ASSET_TAGS = (); }; };
+		A38E4E3A1BD4107A002FC97A /* foundPeerNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E351BD4107A002FC97A /* foundPeerNotification.swift */; settings = {ASSET_TAGS = (); }; };
+		A38E4E3B1BD4107A002FC97A /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E361BD4107A002FC97A /* MPCManager.swift */; settings = {ASSET_TAGS = (); }; };
+		A38E4E3C1BD4107A002FC97A /* PlayModeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E371BD4107A002FC97A /* PlayModeScene.swift */; settings = {ASSET_TAGS = (); }; };
+		A38E4E3D1BD4107A002FC97A /* ScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E381BD4107A002FC97A /* ScrollNode.swift */; settings = {ASSET_TAGS = (); }; };
+		A38E4E3F1BD4119B002FC97A /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E3E1BD4119B002FC97A /* MainScene.swift */; settings = {ASSET_TAGS = (); }; };
+		A38E4E411BD412AD002FC97A /* Defined.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E4E401BD412AD002FC97A /* Defined.swift */; settings = {ASSET_TAGS = (); }; };
 		CDF079D01975428800FFAB46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF079CF1975428800FFAB46 /* AppDelegate.swift */; };
 		CDF079D41975428800FFAB46 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF079D31975428800FFAB46 /* GameScene.swift */; };
 		CDF079D61975428800FFAB46 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF079D51975428800FFAB46 /* GameViewController.swift */; };
@@ -48,6 +55,13 @@
 
 /* Begin PBXFileReference section */
 		7166B8861BD2D288009F1BA6 /* prof@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prof@2x.png"; sourceTree = "<group>"; };
+		A38E4E341BD4107A002FC97A /* FaceoffConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceoffConnector.swift; sourceTree = "<group>"; };
+		A38E4E351BD4107A002FC97A /* foundPeerNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = foundPeerNotification.swift; sourceTree = "<group>"; };
+		A38E4E361BD4107A002FC97A /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
+		A38E4E371BD4107A002FC97A /* PlayModeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayModeScene.swift; sourceTree = "<group>"; };
+		A38E4E381BD4107A002FC97A /* ScrollNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
+		A38E4E3E1BD4119B002FC97A /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		A38E4E401BD412AD002FC97A /* Defined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defined.swift; sourceTree = "<group>"; };
 		CDF079CA1975428800FFAB46 /* SKInvaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKInvaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDF079CE1975428800FFAB46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDF079CF1975428800FFAB46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,7 +137,13 @@
 				CDF079CF1975428800FFAB46 /* AppDelegate.swift */,
 				CDF079D31975428800FFAB46 /* GameScene.swift */,
 				CDF079D51975428800FFAB46 /* GameViewController.swift */,
+				A38E4E3E1BD4119B002FC97A /* MainScene.swift */,
 				CDF07A191975510100FFAB46 /* GameOverScene.swift */,
+				A38E4E341BD4107A002FC97A /* FaceoffConnector.swift */,
+				A38E4E351BD4107A002FC97A /* foundPeerNotification.swift */,
+				A38E4E361BD4107A002FC97A /* MPCManager.swift */,
+				A38E4E371BD4107A002FC97A /* PlayModeScene.swift */,
+				A38E4E381BD4107A002FC97A /* ScrollNode.swift */,
 				CDF079D71975428800FFAB46 /* Main.storyboard */,
 				CDF079DA1975428800FFAB46 /* Images.xcassets */,
 				CDF079CD1975428800FFAB46 /* Supporting Files */,
@@ -159,6 +179,7 @@
 		CDF079F01975453100FFAB46 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				A38E4E401BD412AD002FC97A /* Defined.swift */,
 				CDF079F11975453100FFAB46 /* AssetLicensingNotes.txt */,
 				CDF079F21975453100FFAB46 /* Sound Effects */,
 				CDF079F71975453100FFAB46 /* Sprite Images */,
@@ -322,9 +343,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDF079D41975428800FFAB46 /* GameScene.swift in Sources */,
+				A38E4E3D1BD4107A002FC97A /* ScrollNode.swift in Sources */,
+				A38E4E3A1BD4107A002FC97A /* foundPeerNotification.swift in Sources */,
+				A38E4E3F1BD4119B002FC97A /* MainScene.swift in Sources */,
 				CDF079D61975428800FFAB46 /* GameViewController.swift in Sources */,
+				A38E4E411BD412AD002FC97A /* Defined.swift in Sources */,
+				A38E4E391BD4107A002FC97A /* FaceoffConnector.swift in Sources */,
+				A38E4E3B1BD4107A002FC97A /* MPCManager.swift in Sources */,
 				CDF07A1A1975510100FFAB46 /* GameOverScene.swift in Sources */,
 				CDF079D01975428800FFAB46 /* AppDelegate.swift in Sources */,
+				A38E4E3C1BD4107A002FC97A /* PlayModeScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

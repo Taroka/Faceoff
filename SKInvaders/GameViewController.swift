@@ -1,20 +1,24 @@
 //
 //  GameViewController.swift
-//  SKInvaders
+//  Faceoff
 //
-//  Created by Riccardo D'Antoni on 15/07/14.
-//  Copyright (c) 2014 Razeware. All rights reserved.
+//  Created by Huaying Tsai on 9/20/15.
+//  Copyright (c) 2015 huaying. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class GameViewController: UIViewController {
-
+    
+    
+    var musicPlayer:AVAudioPlayer!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Configure the view.
+        //let scene = SelectWeaponScene(size: view.bounds.size)
+        let scene = MainScene(size: view.bounds.size)
         let skView = self.view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
@@ -22,43 +26,54 @@ class GameViewController: UIViewController {
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
         
-        // Create and configure the scene.
-        let scene = GameScene(size: skView.frame.size)
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
         skView.presentScene(scene)
         
-        // Pause the view (and thus the game) when the app is interrupted or backgrounded
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleApplicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleApplicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        musicPlayer = setupAudioPlayerWithFile("fighton", type: "wav")
+        musicPlayer.numberOfLoops = -1
+        //musicPlayer.play()
+        // 如果開始了就停止播放
+    }
+    
+    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+        let url = NSBundle.mainBundle().URLForResource(file as String, withExtension: type as String)
+        var audioPlayer:AVAudioPlayer?
+        
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOfURL: url!)
+        } catch {
+            print("NO AUDIO PLAYER")
+        }
+        
+        return audioPlayer!
+    }
+    
+    
     override func shouldAutorotate() -> Bool {
         return true
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-       
-        return UIInterfaceOrientationMask.LandscapeLeft
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            return .AllButUpsideDown
+        } else {
+            return .All
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
     
-    
-    func handleApplicationWillResignActive (note: NSNotification) {
-        
-        let skView = self.view as! SKView
-        skView.paused = true
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
-    
-    func handleApplicationDidBecomeActive (note: NSNotification) {
-        
-        let skView = self.view as! SKView
-        skView.paused = false
-    }
-    
-    
-    
 }
