@@ -1,3 +1,10 @@
+//
+//  DualGameScene.swift
+//  SKInvaders
+//
+//  Created by Sunny Chiu on 10/18/15.
+//  Copyright © 2015 Razeware. All rights reserved.
+//
 
 
 import SpriteKit
@@ -21,7 +28,7 @@ extension SKAction {
     }
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class DualGameScene: SKScene, SKPhysicsContactDelegate {
     
     // Game End
     var gameEnding: Bool = false
@@ -109,6 +116,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Scene Setup and Content Creation
     override func didMoveToView(view: SKView) {
         
+    
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveRemoteData:", name: "receivedRemoteDataNotification", object: nil)
+        
+        
+        
         if (!self.contentCreated) {
             self.createContent()
             self.contentCreated = true
@@ -122,6 +135,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.physicsWorld.contactDelegate = self
         }
     }
+    
+    
+    
+    func receiveRemoteData(notification: NSNotification){
+        let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
+        
+
+        
+        
+    }
+    
     
     
     func createContent() {

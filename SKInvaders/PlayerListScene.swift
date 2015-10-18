@@ -114,7 +114,7 @@ class PlayerListScene: SKScene {
     func transitionForNextScene(){
         removeAllChildren()
         let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
-        let nextScene = GameScene(size: scene!.size)
+        let nextScene = DualGameScene(size: scene!.size)
         nextScene.scaleMode = .AspectFill
         nextScene.backgroundColor = UIColor.grayColor()
         scene?.view?.presentScene(nextScene, transition: transition)
