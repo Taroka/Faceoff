@@ -16,6 +16,8 @@ import CoreMotion
 
 class DualGameScene: SKScene, SKPhysicsContactDelegate {
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     // Game End
     var gameEnding: Bool = false
     
