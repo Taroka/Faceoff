@@ -303,7 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // 3
         print(self.size.height)
-        scoreLabel.position = CGPointMake(self.frame.size.width / 2, self.size.height - (40 + scoreLabel.frame.size.height/2))
+        scoreLabel.position = CGPointMake(self.frame.minX+130, self.frame.minY + 20 )
         self.addChild(scoreLabel)
         
         let healthLabel = SKLabelNode(fontNamed: "Courier")
@@ -317,7 +317,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         healthLabel.text = String(format: "Health: %.1f%%", self.shipHealth * 100.0)
         
         // 6
-        healthLabel.position = CGPointMake(self.frame.size.width / 2, self.size.height - (80 + healthLabel.frame.size.height / 2))
+        healthLabel.position = CGPointMake(self.frame.minX + 130 , self.frame.minY+40)
         self.addChild(healthLabel)
     }
     
