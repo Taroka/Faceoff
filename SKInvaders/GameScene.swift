@@ -29,6 +29,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Contact
     var contactQueue = Array<SKPhysicsContact>()
     
+    var 返回按鈕: SKNode! = nil
+
+    
     // Bitmask Categories
     let kInvaderCategory: UInt32 = 0x1 << 0
     let kShipFiredBulletCategory: UInt32 = 0x1 << 1
@@ -121,6 +124,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             self.physicsWorld.contactDelegate = self
         }
+        
+        
+        
+        返回按鈕 = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 50, height: 30))
+        返回按鈕.position = CGPoint(x:CGRectGetMinX(self.frame)+40,y:CGRectGetMaxY(self.frame)-CGFloat(30.0))
+        addChild(返回按鈕)
+        
+        let 返回文字 = SKLabelNode(fontNamed:"Chalkduster")
+        返回文字.text = "Back";
+        返回文字.fontSize = 14;
+        返回文字.position = CGPoint(x:CGFloat(0),y:CGFloat(-5))
+        返回按鈕.addChild(返回文字)
+
+        
     }
     
     
@@ -624,11 +641,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
+    func transitionForNextScene(nextScene: SKScene){
+        let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
+        //removeAllChildren()
+        scene?.view?.presentScene(nextScene, transition: transition)
+    }
+
     // User Tap Helpers
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // Intentional no-op
+        if let location = touches.first?.locationInNode(self){
+            if 返回按鈕.containsPoint(location){
+                返回按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+                let nextScene = MainScene(size: scene!.size)
+                nextScene.scaleMode = SKSceneScaleMode.AspectFill
+                transitionForNextScene(nextScene)
+            }
+        }
+
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)  {
