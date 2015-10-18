@@ -129,13 +129,25 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     func receiveRemoteData(notification: NSNotification){
         let receivedData = NSKeyedUnarchiver.unarchiveObjectWithData(notification.object as! NSData) as! Dictionary<String,AnyObject>
         
+        
+        if let gameOverSign = receivedData["gameOverSign"] as? Bool{
+            
+            var gameOver = gameOverSign
+            //just for demo 用法
+            
+            }
+
 
         
         
     }
     
     
-    
+    func losePeer(notification: NSNotification){
+
+        print("Lose Peer...")
+        
+    }
     func createContent() {
         
         
@@ -360,6 +372,7 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
         if self.isGameOver() {
             
             self.endGame()
+            //傳資料啊 dude
         }
         
         self.processContactsForUpdate(currentTime)
