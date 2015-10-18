@@ -9,6 +9,7 @@
 
 import SpriteKit
 import CoreMotion
+import AVFoundation
 
 
 
@@ -24,6 +25,7 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
     // Contact
     var contactQueue = Array<SKPhysicsContact>()
     
+    var bgMusic:AVAudioPlayer = AVAudioPlayer()
     // Bitmask Categories
     let kInvaderCategory: UInt32 = 0x1 << 0
     let kShipFiredBulletCategory: UInt32 = 0x1 << 1
