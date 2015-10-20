@@ -13,7 +13,7 @@ import AVFoundation
 class GameViewController: UIViewController {
     
     
-    var musicPlayer:AVAudioPlayer!
+    //var musicPlayer:AVAudioPlayer!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,18 +42,18 @@ class GameViewController: UIViewController {
 //        // 如果開始了就停止播放
 //    }
     
-    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
-        let url = NSBundle.mainBundle().URLForResource(file as String, withExtension: type as String)
-        var audioPlayer:AVAudioPlayer?
-        
-        do {
-            try audioPlayer = AVAudioPlayer(contentsOfURL: url!)
-        } catch {
-            print("NO AUDIO PLAYER")
-        }
-        
-        return audioPlayer!
-    }
+//    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+//        let url = NSBundle.mainBundle().URLForResource(file as String, withExtension: type as String)
+//        var audioPlayer:AVAudioPlayer?
+//        
+//        do {
+//            try audioPlayer = AVAudioPlayer(contentsOfURL: url!)
+//        } catch {
+//            print("NO AUDIO PLAYER")
+//        }
+//        
+//        return audioPlayer!
+//    }
     
     
     override func shouldAutorotate() -> Bool {
