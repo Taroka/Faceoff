@@ -443,16 +443,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // 2
             if let data = self.motionManager.accelerometerData {
                 
-                // 3
+                let multiplier = 500.0
+                let x = data.acceleration.x
+                let y = data.acceleration.y
+                ship.physicsBody!.velocity = CGVector(dx: y * multiplier, dy: -x * multiplier )          // 3
                 //if fabs(data.acceleration.x) > 0.05 {
                 
                 // 4 How do you move the ship?
-                ship.physicsBody!.applyForce(CGVectorMake(20.0 * CGFloat(data.acceleration.y), 0))
+                ship.physicsBody!.applyForce(CGVectorMake(40.0 * CGFloat(data.acceleration.y), 0))
                 //}
                 //if fabs(data.acceleration.y) > 0.05 {
                 
                 // 4 How do you move the ship?
-                ship.physicsBody!.applyForce(CGVectorMake(0, -20.0 * CGFloat(data.acceleration.x)))
+                ship.physicsBody!.applyForce(CGVectorMake(0, -40.0 * CGFloat(data.acceleration.x)))
                 //}
             }
         }
@@ -642,8 +645,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func transitionForNextScene(nextScene: SKScene){
-        let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
         //removeAllChildren()
+        
+        let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
+        
         scene?.view?.presentScene(nextScene, transition: transition)
     }
 
