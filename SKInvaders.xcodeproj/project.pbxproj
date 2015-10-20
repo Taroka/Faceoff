@@ -96,7 +96,7 @@
 		A38E4E361BD4107A002FC97A /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		A38E4E371BD4107A002FC97A /* PlayModeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayModeScene.swift; sourceTree = "<group>"; };
 		A38E4E3E1BD4119B002FC97A /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
-		A38E4E401BD412AD002FC97A /* Defined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defined.swift; sourceTree = "<group>"; };
+		A38E4E401BD412AD002FC97A /* Defined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Defined.swift; path = Assets/Defined.swift; sourceTree = "<group>"; };
 		A38E4E421BD41693002FC97A /* ScrollNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
 		A38E4E441BD4181A002FC97A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3C88DD71BD6178B007A145D /* DualGameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DualGameOverScene.swift; path = ../DualGameOverScene.swift; sourceTree = "<group>"; };
@@ -271,6 +271,7 @@
 				CDF079F01975453100FFAB46 /* Assets */,
 				CDF079CF1975428800FFAB46 /* AppDelegate.swift */,
 				CDF079D31975428800FFAB46 /* GameScene.swift */,
+				A38E4E401BD412AD002FC97A /* Defined.swift */,
 				A3CD7C6C1BD4229400F0CF42 /* Shake.swift */,
 				CDF079D51975428800FFAB46 /* GameViewController.swift */,
 				A38E4E3E1BD4119B002FC97A /* MainScene.swift */,
@@ -323,7 +324,6 @@
 				A3FECB521BD493560043AB0F /* Image */,
 				A3FECB651BD493560043AB0F /* Sks */,
 				A3FECB681BD493560043AB0F /* Sound */,
-				A38E4E401BD412AD002FC97A /* Defined.swift */,
 				CDF079F11975453100FFAB46 /* AssetLicensingNotes.txt */,
 				CDF079F21975453100FFAB46 /* Sound Effects */,
 				CDF079F71975453100FFAB46 /* Sprite Images */,
