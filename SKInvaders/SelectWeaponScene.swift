@@ -34,6 +34,12 @@ class SelectWeaponScene: SKScene {
     var did_shrink: NSInteger = 0;
     var arrayOfStrings: [String] = ["Bomb", "Bow", "Grenade", "Katachi", "Cannon"]
     
+    
+//    override func supportedInterfaceOrientations{
+//        return UIInterfaceOrientationMaskAllButUpsideDown
+//    }
+    
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         let myLabel = SKLabelNode(fontNamed:"Chalkduster")

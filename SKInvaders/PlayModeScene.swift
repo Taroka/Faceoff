@@ -79,6 +79,8 @@ class PlayModeScene: SKScene {
                 BattleButton.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                 let nextScene = PlayerListScene(size: scene!.size)
                 nextScene.scaleMode = SKSceneScaleMode.AspectFill
+               // nextScene.scene.
+                nextScene.battleMode = true
                 transitionForNextScene(nextScene)
             }else if 返回按鈕.containsPoint(location){
                 返回按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
