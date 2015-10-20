@@ -53,35 +53,35 @@ class SelectWeaponScene: SKScene {
         forward_btn = SKSpriteNode(imageNamed:"Forward")
         forward_btn.xScale = 1.5
         forward_btn.yScale = 1.5
-        forward_btn.position = CGPoint(x:CGRectGetMidX(self.frame)+160, y:CGRectGetMidY(self.frame)-100)
+        forward_btn.position = CGPoint(x:CGRectGetMidX(self.frame)*1.6, y:CGRectGetMidY(self.frame))
         forward_btn.name = "forward_btn"
         forward_btn.zPosition = 1.0
         
         back_btn = SKSpriteNode(imageNamed:"Back")
         back_btn.xScale = 1.5
         back_btn.yScale = 1.5
-        back_btn.position = CGPoint(x:CGRectGetMidX(self.frame)-160, y:CGRectGetMidY(self.frame)-100)
+        back_btn.position = CGPoint(x:CGRectGetMidX(self.frame)*0.4, y:CGRectGetMidY(self.frame))
         back_btn.name = "back_btn"
         back_btn.zPosition = 1.0
         
         box1 = SKSpriteNode(imageNamed:"weapon_box")
         box1.xScale = 0.7
         box1.yScale = 0.7
-        box1.position = CGPoint(x:CGRectGetMidX(self.frame)-120, y:CGRectGetMidY(self.frame)+170)
+        box1.position = CGPoint(x:CGRectGetMidX(self.frame)-120, y:CGRectGetMidY(self.frame)*1.5)
         box1.name = "box1"
         box1.zPosition = 1.0
         
         box2 = SKSpriteNode(imageNamed:"weapon_box")
         box2.xScale = 0.7
         box2.yScale = 0.7
-        box2.position = CGPoint(x:CGRectGetMidX(self.frame)+0, y:CGRectGetMidY(self.frame)+170)
+        box2.position = CGPoint(x:CGRectGetMidX(self.frame)+0, y:CGRectGetMidY(self.frame)*1.5)
         box2.name = "box2"
         box2.zPosition = 1.0
         
         box3 = SKSpriteNode(imageNamed:"weapon_box")
         box3.xScale = 0.7
         box3.yScale = 0.7
-        box3.position = CGPoint(x:CGRectGetMidX(self.frame)+120, y:CGRectGetMidY(self.frame)+170)
+        box3.position = CGPoint(x:CGRectGetMidX(self.frame)+120, y:CGRectGetMidY(self.frame)*1.5)
         box3.name = "box3"
         box3.zPosition = 1.0
         
@@ -89,21 +89,21 @@ class SelectWeaponScene: SKScene {
         Weapon1 = SKSpriteNode(imageNamed:"weapon_blank")
         Weapon1.xScale = 0.55
         Weapon1.yScale = 0.55
-        Weapon1.position = CGPoint(x:CGRectGetMidX(self.frame)-120, y:CGRectGetMidY(self.frame)+170)
+        Weapon1.position = CGPoint(x:CGRectGetMidX(self.frame)-120, y:CGRectGetMidY(self.frame)*1.5)
         Weapon1.name = "weapon1"
         Weapon1.zPosition = 1.0
         
         Weapon2 = SKSpriteNode(imageNamed:"weapon_blank")
         Weapon2.xScale = 0.55
         Weapon2.yScale = 0.55
-        Weapon2.position = CGPoint(x:CGRectGetMidX(self.frame)+0, y:CGRectGetMidY(self.frame)+170)
+        Weapon2.position = CGPoint(x:CGRectGetMidX(self.frame)+0, y:CGRectGetMidY(self.frame)*1.5)
         Weapon2.name = "weapon2"
         Weapon2.zPosition = 1.0
         
         Weapon3 = SKSpriteNode(imageNamed:"weapon_blank")
         Weapon3.xScale = 0.55
         Weapon3.yScale = 0.55
-        Weapon3.position = CGPoint(x:CGRectGetMidX(self.frame)+120, y:CGRectGetMidY(self.frame)+170)
+        Weapon3.position = CGPoint(x:CGRectGetMidX(self.frame)+120, y:CGRectGetMidY(self.frame)*1.5)
         Weapon3.name = "weapon3"
         Weapon3.zPosition = 1.0
 //        
@@ -117,7 +117,7 @@ class SelectWeaponScene: SKScene {
         confirm_btn = SKSpriteNode(imageNamed:"Confirm")
         confirm_btn.xScale = 0.6
         confirm_btn.yScale = 0.6
-        confirm_btn.position = CGPoint(x:CGRectGetMidX(self.frame)+10, y:CGRectGetMidY(self.frame)-200)
+        confirm_btn.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame)*0.5)
         confirm_btn.name = "confirm_btn"
         confirm_btn.zPosition = 1.0
         
