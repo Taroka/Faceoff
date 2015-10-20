@@ -808,8 +808,7 @@ private extension BattleScene {
         guard let _ = childNodeWithName("background") as! SKSpriteNode? else {
             let texture = SKTexture(image: UIImage(named: "background.jpg")!)
             let node = SKSpriteNode(texture: texture)
-            node.xScale = 1.5
-            node.yScale = 1.5
+            node.size = self.frame.size;
             node.position = CGPoint(x: frame.midX, y: frame.midY)
             node.zPosition = FaceoffGameSceneZposition.BackgroundZposition.rawValue
             //    self.physicsWorld.gravity = CGVectorMake(0, gravity)
