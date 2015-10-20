@@ -33,14 +33,14 @@ class GameViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        musicPlayer = setupAudioPlayerWithFile("fighton", type: "wav")
-        musicPlayer.numberOfLoops = -1
-        //musicPlayer.play()
-        // 如果開始了就停止播放
-    }
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        musicPlayer = setupAudioPlayerWithFile("fighton", type: "wav")
+//        musicPlayer.numberOfLoops = -1
+//        //musicPlayer.play()
+//        // 如果開始了就停止播放
+//    }
     
     func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
         let url = NSBundle.mainBundle().URLForResource(file as String, withExtension: type as String)

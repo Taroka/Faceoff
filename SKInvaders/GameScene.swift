@@ -2,6 +2,7 @@
 
 import SpriteKit
 import CoreMotion
+import AVFoundation
 
 
 
@@ -31,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var 返回按鈕: SKNode! = nil
 
+    //var musicPlayer:AVAudioPlayer!
     
     // Bitmask Categories
     let kInvaderCategory: UInt32 = 0x1 << 0
@@ -138,8 +140,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         返回按鈕.addChild(返回文字)
 
         
+//        musicPlayer = setupAudioPlayerWithFile("fighton", type: "wav")
+//        musicPlayer.numberOfLoops = -1
+//        musicPlayer.play()
+
+        
     }
     
+//    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+//        let url = NSBundle.mainBundle().URLForResource(file as String, withExtension: type as String)
+//        var audioPlayer:AVAudioPlayer?
+//        
+//        do {
+//            try audioPlayer = AVAudioPlayer(contentsOfURL: url!)
+//        } catch {
+//            print("NO AUDIO PLAYER")
+//        }
+//        
+//        return audioPlayer!
+//    }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        musicPlayer = setupAudioPlayerWithFile("fighton", type: "wav")
+//        musicPlayer.numberOfLoops = -1
+//        musicPlayer.play()
+//        // 如果開始了就停止播放
+//    }
     
     func createContent() {
         
@@ -645,11 +673,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func transitionForNextScene(nextScene: SKScene){
-        //removeAllChildren()
         
+//        musicPlayer.stop()
+//        removeFromParent()
         let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
         
         scene?.view?.presentScene(nextScene, transition: transition)
+        
+        
     }
 
     // User Tap Helpers

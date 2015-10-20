@@ -3,8 +3,6 @@
 //  SKInvaders
 //
 //  Created by Sunny Chiu on 10/18/15.
-//  Copyright © 2015 Razeware. All rights reserved.
-//
 
 
 import SpriteKit
@@ -841,7 +839,7 @@ class DualGameScene: SKScene, SKPhysicsContactDelegate {
             self.motionManager.stopAccelerometerUpdates()
             
             // 3
-            let gameOverScene: GameOverScene = GameOverScene(size: self.size)
+            let gameOverScene: DualGameOverScene = DualGameOverScene(size: self.size)
             
             view!.presentScene(gameOverScene, transition: SKTransition.doorsOpenHorizontalWithDuration(1.0))
         }
