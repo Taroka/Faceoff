@@ -1,8 +1,3 @@
-//
-//  BattleScene.swift
-//  SKInvaders
-//
-//  Created by Sunny Chiu on 10/20/15.
 
 import SpriteKit
 import AVFoundation
@@ -280,6 +275,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "losePeer:", name: "losePeerNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveRemoteData:", name: "receivedRemoteDataNotification", object: nil)
     }
+    
+    
     
     func didBeginContact(contact: SKPhysicsContact) {
         //let firstNode = contact.bodyA.node as! SKSpriteNode
@@ -811,7 +808,8 @@ private extension BattleScene {
         guard let _ = childNodeWithName("background") as! SKSpriteNode? else {
             let texture = SKTexture(image: UIImage(named: "background.jpg")!)
             let node = SKSpriteNode(texture: texture)
-            node.size = self.frame.size;
+            node.xScale = 1.5
+            node.yScale = 1.5
             node.position = CGPoint(x: frame.midX, y: frame.midY)
             node.zPosition = FaceoffGameSceneZposition.BackgroundZposition.rawValue
             //    self.physicsWorld.gravity = CGVectorMake(0, gravity)
