@@ -18,6 +18,7 @@ class PlayerListScene: SKScene {
     var scrollnode = ScrollNode()
     var statusnode = SKLabelNode(fontNamed: "Chalkduster")
     var 返回按鈕: SKNode! = nil
+    var battleMode = false
     
     override func didMoveToView(view: SKView) {
         
@@ -102,7 +103,13 @@ class PlayerListScene: SKScene {
         print("connected")
         
         statusLabel("Connected")
-        transitionForNextScene(DualGameScene(size: scene!.size))
+        
+        if battleMode{
+            transitionForNextScene(SelectWeaponScene(size: scene!.size))
+        }else{
+            transitionForNextScene(DualGameScene(size: scene!.size))
+        }
+        
     }
     
     

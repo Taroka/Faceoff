@@ -11,7 +11,9 @@ import SpriteKit
 class PlayModeScene: SKScene {
     var 選擇單人遊戲按鈕: SKNode! = nil
     var 選擇雙人遊戲按鈕: SKNode! = nil
+    var BattleButton: SKNode! = nil
     var 返回按鈕: SKNode! = nil
+    
 
     override func didMoveToView(view: SKView) {
         選擇單人遊戲按鈕 = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200, height: 40))
@@ -34,8 +36,18 @@ class PlayModeScene: SKScene {
         進入遊戲文字.position = CGPoint(x:CGFloat(0),y:CGFloat(-5))
         選擇雙人遊戲按鈕.addChild(進入遊戲文字)
         
+        BattleButton = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200, height: 40))
+        BattleButton.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGRectGetMidY(self.frame)-CGFloat(50.0))
+        addChild(BattleButton)
+        
+        let Battle文字 = SKLabelNode(fontNamed:"Chalkduster")
+        Battle文字.text = "Space Battle";
+        Battle文字.fontSize = 14;
+        Battle文字.position = CGPoint(x:CGFloat(0),y:CGFloat(-5))
+        BattleButton.addChild(Battle文字)
+        
         返回按鈕 = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200, height: 40))
-        返回按鈕.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGRectGetMidY(self.frame)-CGFloat(50.0))
+        返回按鈕.position = CGPoint(x:CGRectGetMidX(self.frame),y:CGRectGetMidY(self.frame)-CGFloat(100.0))
         addChild(返回按鈕)
         
         let 返回文字 = SKLabelNode(fontNamed:"Chalkduster")
@@ -63,8 +75,11 @@ class PlayModeScene: SKScene {
                 let nextScene = PlayerListScene(size: scene!.size)
                 nextScene.scaleMode = SKSceneScaleMode.AspectFill
                 transitionForNextScene(nextScene)
-
-                
+            }else if BattleButton.containsPoint(location){
+                BattleButton.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+                let nextScene = PlayerListScene(size: scene!.size)
+                nextScene.scaleMode = SKSceneScaleMode.AspectFill
+                transitionForNextScene(nextScene)
             }else if 返回按鈕.containsPoint(location){
                 返回按鈕.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
                 let nextScene = MainScene(size: scene!.size)
@@ -78,6 +93,8 @@ class PlayModeScene: SKScene {
         let transition = SKTransition.revealWithDirection(SKTransitionDirection.Up, duration: 0.5)
         //removeAllChildren()
         scene?.view?.presentScene(nextScene, transition: transition)
+        
+        
     }
     
     override func update(currentTime: NSTimeInterval) {

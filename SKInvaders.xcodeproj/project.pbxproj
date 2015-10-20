@@ -18,6 +18,8 @@
 		A38E4E451BD4181A002FC97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38E4E441BD4181A002FC97A /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
 		A3C88DD81BD6178B007A145D /* DualGameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C88DD71BD6178B007A145D /* DualGameOverScene.swift */; settings = {ASSET_TAGS = (); }; };
 		A3C88DDA1BD61AD4007A145D /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3C88DD91BD61AD4007A145D /* background.jpg */; settings = {ASSET_TAGS = (); }; };
+		A3C88DE01BD6C177007A145D /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C88DDF1BD6C177007A145D /* BattleScene.swift */; settings = {ASSET_TAGS = (); }; };
+		A3C88DE21BD6C74D007A145D /* SelectWeaponScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C88DE11BD6C74D007A145D /* SelectWeaponScene.swift */; settings = {ASSET_TAGS = (); }; };
 		A3CD7C6B1BD4205400F0CF42 /* DualGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CD7C6A1BD4205400F0CF42 /* DualGameScene.swift */; settings = {ASSET_TAGS = (); }; };
 		A3CD7C6D1BD4229400F0CF42 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CD7C6C1BD4229400F0CF42 /* Shake.swift */; settings = {ASSET_TAGS = (); }; };
 		A3FECB731BD493560043AB0F /* attackerWH.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A3FECB4F1BD493560043AB0F /* attackerWH.atlas */; settings = {ASSET_TAGS = (); }; };
@@ -95,6 +97,8 @@
 		A38E4E441BD4181A002FC97A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3C88DD71BD6178B007A145D /* DualGameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DualGameOverScene.swift; path = ../DualGameOverScene.swift; sourceTree = "<group>"; };
 		A3C88DD91BD61AD4007A145D /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		A3C88DDF1BD6C177007A145D /* BattleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
+		A3C88DE11BD6C74D007A145D /* SelectWeaponScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectWeaponScene.swift; sourceTree = "<group>"; };
 		A3CD7C6A1BD4205400F0CF42 /* DualGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DualGameScene.swift; sourceTree = "<group>"; };
 		A3CD7C6C1BD4229400F0CF42 /* Shake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shake.swift; path = ../Shake.swift; sourceTree = "<group>"; };
 		A3FECB4F1BD493560043AB0F /* attackerWH.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = attackerWH.atlas; sourceTree = "<group>"; };
@@ -263,8 +267,10 @@
 				A38E4E351BD4107A002FC97A /* PlayerListScene.swift */,
 				A38E4E361BD4107A002FC97A /* MPCManager.swift */,
 				A3CD7C6A1BD4205400F0CF42 /* DualGameScene.swift */,
+				A3C88DE11BD6C74D007A145D /* SelectWeaponScene.swift */,
 				A38E4E421BD41693002FC97A /* ScrollNode.swift */,
 				A38E4E371BD4107A002FC97A /* PlayModeScene.swift */,
+				A3C88DDF1BD6C177007A145D /* BattleScene.swift */,
 				CDF079D71975428800FFAB46 /* Main.storyboard */,
 				CDF079DA1975428800FFAB46 /* Images.xcassets */,
 				A38E4E441BD4181A002FC97A /* Assets.xcassets */,
@@ -493,8 +499,10 @@
 				A38E4E411BD412AD002FC97A /* Defined.swift in Sources */,
 				A38E4E391BD4107A002FC97A /* FaceoffConnector.swift in Sources */,
 				A38E4E3B1BD4107A002FC97A /* MPCManager.swift in Sources */,
+				A3C88DE21BD6C74D007A145D /* SelectWeaponScene.swift in Sources */,
 				A3CD7C6B1BD4205400F0CF42 /* DualGameScene.swift in Sources */,
 				CDF07A1A1975510100FFAB46 /* GameOverScene.swift in Sources */,
+				A3C88DE01BD6C177007A145D /* BattleScene.swift in Sources */,
 				CDF079D01975428800FFAB46 /* AppDelegate.swift in Sources */,
 				A38E4E3C1BD4107A002FC97A /* PlayModeScene.swift in Sources */,
 			);
@@ -615,9 +623,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SKInvaders/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.faceoff.ching;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -628,9 +638,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SKInvaders/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.faceoff.ching;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
