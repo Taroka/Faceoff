@@ -13,7 +13,7 @@ class SelectWeaponScene: SKScene {
     var WEAPONS:[SKNode] = [SKNode]()
     var forward_btn: SKNode! = nil
     var back_btn: SKNode! = nil
-    var select_btn: SKNode! = nil
+    //var select_btn: SKNode! = nil
     var confirm_btn: SKNode! = nil
     
     var box1: SKNode! = nil
@@ -42,12 +42,12 @@ class SelectWeaponScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-        
-        //self.addChild(myLabel)
+//        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
+//        myLabel.text = "Hello, World!";
+//        myLabel.fontSize = 45;
+//        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+//        
+//        //self.addChild(myLabel)
         
         
         forward_btn = SKSpriteNode(imageNamed:"Forward")
@@ -106,18 +106,18 @@ class SelectWeaponScene: SKScene {
         Weapon3.position = CGPoint(x:CGRectGetMidX(self.frame)+120, y:CGRectGetMidY(self.frame)+170)
         Weapon3.name = "weapon3"
         Weapon3.zPosition = 1.0
-        
-        select_btn = SKSpriteNode(imageNamed:"Select")
-        select_btn.xScale = 0.6
-        select_btn.yScale = 0.6
-        select_btn.position = CGPoint(x:CGRectGetMidX(self.frame)+10, y:CGRectGetMidY(self.frame)-200)
-        select_btn.name = "select_btn"
-        select_btn.zPosition = 1.0
+//        
+//        select_btn = SKSpriteNode(imageNamed:"Select")
+//        select_btn.xScale = 0.6
+//        select_btn.yScale = 0.6
+//        select_btn.position = CGPoint(x:CGRectGetMidX(self.frame)+10, y:CGRectGetMidY(self.frame)-200)
+//        select_btn.name = "select_btn"
+//        select_btn.zPosition = 1.0
         
         confirm_btn = SKSpriteNode(imageNamed:"Confirm")
         confirm_btn.xScale = 0.6
         confirm_btn.yScale = 0.6
-        confirm_btn.position = CGPoint(x:CGRectGetMidX(self.frame)+10, y:CGRectGetMidY(self.frame)-260)
+        confirm_btn.position = CGPoint(x:CGRectGetMidX(self.frame)+10, y:CGRectGetMidY(self.frame)-200)
         confirm_btn.name = "confirm_btn"
         confirm_btn.zPosition = 1.0
         
@@ -132,7 +132,7 @@ class SelectWeaponScene: SKScene {
         self.addChild(Weapon2)
         self.addChild(Weapon3)
         
-        self.addChild(select_btn)
+       // self.addChild(select_btn)
         self.addChild(confirm_btn)
         
         for var i=0; i<arrayOfStrings.count; i++ {
@@ -165,14 +165,14 @@ class SelectWeaponScene: SKScene {
         /* Called when a touch begins */
         
         for touch in touches {
-            let location = touch.locationInNode(self)
+//            let location = touch.locationInNode(self)
             
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            //sprite.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
-            sprite.position = location
+//            let sprite = SKSpriteNode(imageNamed:"Spaceship")
+//            
+//            sprite.xScale = 0.5
+//            sprite.yScale = 0.5
+//            //sprite.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+//            sprite.position = location
         }
     }
     
@@ -281,37 +281,37 @@ class SelectWeaponScene: SKScene {
                 did_tap = true;
             }
             
-            if select_btn.containsPoint(location) {
-                
-                select_btn.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
-
-                switch(select_count){
-                case 0:
-                    Weapon1.texture = SKTexture(imageNamed: arrayOfStrings[count])
-                    break
-                case 1:
-                    Weapon2.texture = SKTexture(imageNamed: arrayOfStrings[count])
-                    break
-                case 2:
-                    Weapon3.texture = SKTexture(imageNamed: arrayOfStrings[count])
-                    break
-                default:
-                    break
-                }
-                
-                if(select_count<3){
-                    
-                    let name:String = self.nodeAtPoint(location).name!
-                    weaponArray.append(name)
-                }
-                
-                select_count += 1
-                
-                if(select_count == 3){
-                    select_count = 0
-                }
-                
-            }
+//            if select_btn.containsPoint(location) {
+//                
+//                select_btn.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
+//
+//                switch(select_count){
+//                case 0:
+//                    Weapon1.texture = SKTexture(imageNamed: arrayOfStrings[count])
+//                    break
+//                case 1:
+//                    Weapon2.texture = SKTexture(imageNamed: arrayOfStrings[count])
+//                    break
+//                case 2:
+//                    Weapon3.texture = SKTexture(imageNamed: arrayOfStrings[count])
+//                    break
+//                default:
+//                    break
+//                }
+//                
+//                if(select_count<3){
+//                    
+//                    let name:String = self.nodeAtPoint(location).name!
+//                    weaponArray.append(name)
+//                }
+//                
+//                select_count += 1
+//                
+//                if(select_count == 3){
+//                    select_count = 0
+//                }
+//                
+//            }
             
             if confirm_btn.containsPoint(location) {
                 //confirm_btn.runAction(SKAction.playSoundFileNamed(FaceoffGameSceneEffectAudioName.ButtonAudioName.rawValue, waitForCompletion: false))
